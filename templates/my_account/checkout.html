@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block content %}
+  <br />
+  <br />
+  <section class="container my-5">
+    <div class="checkout-progress mb-5">
+      <div class="d-flex justify-content-center align-items-center">
+        <!-- Step 1 -->
+        <div class="step active">
+          <div class="step-icon">
+            <i class="bi bi-cart"></i>
+          </div>
+          <span>Add to Cart</span>
+        </div>
+
+        <!-- Line -->
+        <div class="step-line"></div>
+
+        <!-- Step 2 -->
+        <div class="step active">
+          <div class="step-icon">
+            <i class="bi bi-list-check"></i>
+          </div>
+          <span>Checkout</span>
+        </div>
+
+        <!-- Line -->
+        <div class="step-line"></div>
+
+        <!-- Step 3 -->
+        <div class="step">
+          <div class="step-icon">
+            <i class="bi bi-credit-card"></i>
+          </div>
+          <span>Payment</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Header -->
+    <h2 class="text-center mb-4 fw-bold text-dark">Checkout</h2>
+
+    <!-- Checkout Form -->
+    <form id="payment-form" method="POST" class="bg-white p-4 rounded-4 shadow-lg">
+      {% csrf_token %}
+      <div class="row g-4">
+        <!-- Billing Details -->
+        <div class="col-md-7">
+          <div class="border rounded-4 p-4 bg-light">
+            <h5 class="mb-4 fw-bold text-primary"><i class="bi bi-person-circle me-2"></i> Billing Details</h5>
+            <div class="form-group">{{ form.as_p }}</div>
+          </div>
+        </div>
+
+        <!-- Payment Summary -->
+        <div class="col-md-5">
+          <div class="border rounded-4 p-4 bg-light shadow-sm">
+            <!-- Heading -->
+            <h5 class="mb-4 fw-bold text-primary"><i class="bi bi-credit-card-2-front me-2"></i> Payment</h5>
+
+            <div class="payment-option border rounded-3 bg-white p-3 mb-4">
+              <div class="d-flex align-items-center mb-2">
+                <img src="https://stripe.com/img/v3/home/twitter.png" alt="Stripe Logo" width="30" height="30" class="me-2" />
+                <h6 class="fw-bold mb-0 text-dark">Pay with Stripe</h6>
+              </div>
+              <p class="small text-muted mb-0">Pay securely using your Credit or Debit card via Stripe.</p>
+            </div>
+            <button type="submit" class="btn btn-warning btn-sm w-100 fw-bold shadow-sm text-uppercase">Place Order – ${{ total_price }} &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Progress Bar Styles -->
+  <style>
+    .steps {
+      width: 80%;
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+    }
+    .steps li {
+      flex: 1;
+      text-align: center;
+      font-weight: 600;
+      color: #999;
+      position: relative;
+    }
+    .steps li::before {
+      content: '';
+      width: 30px;
+      height: 30px;
+      background: #ddd;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 10px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 14px;
+      z-index: 1;
+      position: relative;
+    }
+    
+    .checkout-progress {
+      margin-bottom: 30px;
+    }
+    
+    .step {
+      text-align: center;
+      position: relative;
+      color: #999;
+      font-weight: 600;
+    }
+    
+    .step-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      font-size: 22px;
+      color: #fff;
+    }
+    
+    .step span {
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    
+    .step-line {
+      width: 80px;
+      height: 4px;
+      background: #ddd;
+      margin: 0 15px;
+      border-radius: 2px;
+    }
+    
+    .step.active .step-icon {
+      background: #28a745;
+    }
+    
+    .step.active span {
+      color: #28a745;
+    }
+  </style>
+{% endblock %}

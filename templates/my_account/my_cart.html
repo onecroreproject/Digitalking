@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block content %}
+  <!-- ======= Pricing ======= -->
+  <section class="section pricing__v2" id="pricing">
+    
+    <div class="container" data-aos="fade-up" data-aos-delay="300">
+      <div class="row mb-5">
+        <div class="col-md-5 mx-auto text-center">
+          <br />
+          <div class="text-center my-4">
+            <h1 class="fw-bold" style="color: #2f294d;">Cart</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item">
+                  <a href="#" class="text-muted text-decoration-none">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="#" class="text-muted text-decoration-none">Products</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page" style="color: #2f294d;">Cart</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Left Column: Backlinks Packages -->
+        <div class="col-md-8 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="p-4 rounded-4 bg-white shadow-sm">
+            <h2 class="text-center fw-bold text-primary">Your Backlinks Packages</h2>
+            <hr class="mb-4" style="border-top: 3px solid #585858ff; width: 200px; margin: auto;" />
+
+            <div class="d-flex justify-content-between fw-bold px-2 mb-2 border-bottom pb-2">
+              <span>Packages</span>
+              <span>Subtotal</span>
+            </div>
+
+            {% for item in backlink_items %}
+              <div class="card border-0 shadow-sm mb-3 rounded-3 position-relative" id="item-{{ item.id }}">
+                <!-- Delete Button -->
+                <a class="btn-close position-absolute top-0 end-0 m-3 text-danger delete-item" href="{% url 'delete_cart' item.id %}" aria-label="Close"></a>
+                  <br>
+                <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start">
+                  <!-- Package Details -->
+                  <div>
+                    <h6 class="fw-bold text-dark">{{ item.package_name.title|title }}</h6>
+                    <p class="mb-2">
+                      <strong>Website URL:</strong> <span class="text-warning">{{ item.website_url }}</span>
+                    </p>
+
+                    <!-- Keywords -->
+                    <div class="small text-muted">
+                      {% if item.keyword_1 %}
+                        <div>
+                          <strong>1st Keyword:</strong> <span class="text-warning">{{ item.keyword_1 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_2 %}
+                        <div>
+                          <strong>2nd Keyword:</strong> <span class="text-warning">{{ item.keyword_2 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_3 %}
+                        <div>
+                          <strong>3rd Keyword:</strong> <span class="text-warning">{{ item.keyword_3 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_4 %}
+                        <div>
+                          <strong>4th Keyword:</strong> <span class="text-warning">{{ item.keyword_4 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_5 %}
+                        <div>
+                          <strong>5th Keyword:</strong> <span class="text-warning">{{ item.keyword_5 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_6 %}
+                        <div>
+                          <strong>6th Keyword:</strong> <span class="text-warning">{{ item.keyword_6 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_7 %}
+                        <div>
+                          <strong>7th Keyword:</strong> <span class="text-warning">{{ item.keyword_7 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_8 %}
+                        <div>
+                          <strong>8th Keyword:</strong> <span class="text-warning">{{ item.keyword_8 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_9 %}
+                        <div>
+                          <strong>9th Keyword:</strong> <span class="text-warning">{{ item.keyword_9 }}</span>
+                        </div>
+                      {% endif %}
+                      {% if item.keyword_10 %}
+                        <div>
+                          <strong>10th Keyword:</strong> <span class="text-warning">{{ item.keyword_10 }}</span>
+                        </div>
+                      {% endif %}
+                    </div>
+
+                    <!-- Completion Date -->
+                    <div class="alert alert-danger py-1 mt-2 mb-0 text-center">
+                      <small>Order will be completed on <b>{{ item.completed_date|date:'d-M-Y' }}</b></small>
+                    </div>
+                  </div>
+                  <div class="text-end mt-3 mt-md-0">
+                    <span class="fw-bold fs-5 text-success">${{ item.package_name.price|floatformat:2 }}</span>
+                  </div>
+                </div>
+              </div>
+              <a class="btn btn-sm" href="/#pricing">&larr; Back to backlink pricing</a>
+            {% empty %}
+              <p class="text-muted mt-4 text-center">No backlink packages in your cart.</p>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+          <div class="bg-white p-4 rounded-4 shadow-sm">
+            <h5 class="fw-bold mb-4 text-primary">Cart Totals</h5>
+            <div class="d-flex justify-content-between mb-3">
+              <span class="fw-semibold">Subtotal</span>
+              <span class="fw-semibold">${{ total_price }}</span>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between mb-4">
+              <span class="fw-bold">Total</span>
+              <span class="fw-bold text-success">${{ total_price }}</span>
+            </div>
+            <a href="{% url 'checkout' %}" class="btn btn-primary btn-sm w-100">Proceed To Checkout &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

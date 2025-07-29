@@ -1,0 +1,158 @@
+{% extends 'my_account/account_base.html' %}
+{% block content %}
+<br>
+<br><br>
+<script src="https://js.stripe.com/v3/"></script>
+
+<style>
+.payment-container {
+    max-width: 450px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+.payment-container h2 {
+    text-align: center;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+.payment-summary {
+    background: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+#card-element {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+#card-element:hover {
+    border-color: #28a745;
+}
+#card-errors {
+    font-size: 14px;
+    color: red;
+    margin-bottom: 10px;
+}
+#pay-btn {
+    width: 100%;
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#pay-btn:hover:not(:disabled) {
+    background: linear-gradient(45deg, #218838, #28a745);
+    transform: scale(1.02);
+}
+#pay-btn:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<section class="payment-container">
+    <h2>Secure Payment</h2>
+    <div class="payment-summary">
+        <span>Total Amount</span>
+        <span>${{ order.total_amount }}</span>
+    </div>
+    <div id="card-element"></div>
+    <div id="card-errors"></div>
+    <button id="pay-btn">
+        Pay ${{ order.total_amount }}
+    </button>
+</section>
+
+<script>
+const stripe = Stripe("{{ stripe_publishable_key }}");
+const elements = stripe.elements();
+const card = elements.create('card', {
+    style: {
+        base: {
+            fontSize: '16px',
+            color: '#32325d',
+            '::placeholder': { color: '#aab7c4' }
+        }
+    }
+});
+card.mount('#card-element');
+
+const payBtn = document.getElementById('pay-btn');
+
+payBtn.addEventListener('click', async () => {
+
+    payBtn.disabled = true;
+    payBtn.innerHTML = `Processing <span class="spinner"></span>`;
+
+    try {
+        const response = await fetch("", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        });
+        const data = await response.json();
+        const result = await stripe.confirmCardPayment(data.client_secret, {
+            payment_method: { card: card }
+        });
+
+        if (result.error) {
+            document.getElementById('card-errors').textContent = result.error.message;
+            payBtn.disabled = false;
+            payBtn.innerHTML = `Pay ${{ order.total_amount }}`;
+        } else {
+            if (result.paymentIntent.status === 'succeeded') {
+                await fetch("/update-order-status/", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ order_id: "{{ order.id }}" })
+                });
+                window.location.href = "{% url 'payment_success' %}";
+            }
+        }
+    } catch (error) {
+        document.getElementById('card-errors').textContent = "Something went wrong. Try again.";
+        payBtn.disabled = false;
+        payBtn.innerHTML = `Pay ${{ order.total_amount }}`;
+    }
+});
+</script>
+{% endblock %}

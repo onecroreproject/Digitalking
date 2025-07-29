@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Order Completed</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        color: #333333;
+        line-height: 1.6;
+        background-color: #f7f7f7;
+        padding: 20px;
+      }
+      .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      }
+      .header {
+        text-align: center;
+        color: #1a1a1a;
+      }
+      .btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #0073e6;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .footer {
+        font-size: 12px;
+        color: #888888;
+        margin-top: 40px;
+        text-align: center;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #dddddd;
+      }
+      .highlight {
+        font-weight: bold;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="header">Hi {{ order.user.first_name }},</h2>
+
+      <p>
+        Your order <span class="highlight">#{{ order.order_id }}</span> is now complete.
+      </p>
+
+      <p>
+        The report is attached to this email. If you are unable to view it here, please log in to your <strong>Backlink Works</strong> account and download the report manually.
+      </p>
+
+      <p>
+        <strong>The report is in Excel (.xlsx) format.</strong>
+      </p>
+
+      <h3>Order Details</h3>
+      <table>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+        </tr>
+        {% for item in order.backlink_cart.all %}
+          <tr>
+            <td>
+              {{ item.package_name.title }}<br />
+              <small>
+                Website URL: {{ item.website_url }}<br />
+                {% if item.keyword_1 %}
+                  <div class="small">
+                    <span>1st Keyword:</span> <span>{{ item.keyword_1 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_2 %}
+                  <div class="small">
+                    <span>2nd Keyword:</span> <span>{{ item.keyword_2 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_3 %}
+                  <div class="small">
+                    <span>3rd Keyword:</span> <span>{{ item.keyword_3 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_4 %}
+                  <div class="small">
+                    <span>4th Keyword:</span> <span>{{ item.keyword_4 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_5 %}
+                  <div class="small">
+                    <span>5th Keyword:</span> <span>{{ item.keyword_5 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_6 %}
+                  <div class="small">
+                    <span>6th Keyword:</span> <span>{{ item.keyword_6 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_7 %}
+                  <div class="small">
+                    <span>7th Keyword:</span> <span>{{ item.keyword_7 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_8 %}
+                  <div class="small">
+                    <span>8th Keyword:</span> <span>{{ item.keyword_8 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_9 %}
+                  <div class="small">
+                    <span>9th Keyword:</span> <span>{{ item.keyword_9 }}</span>
+                  </div>
+                {% endif %}
+                {% if item.keyword_10 %}
+                  <div class="small">
+                    <span>10th Keyword:</span> <span>{{ item.keyword_10 }}</span>
+                  </div>
+                {% endif %}
+              </small>
+            </td>
+            <td>₹ {{ item.package_name.price }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+
+      <p>
+        <a class="btn" href="#">Login & Download Report</a>
+      </p>
+
+      <p>
+        If you have any questions regarding the order or the report, feel free to contact us at <a href="mailto:hello@backlinkworks.com">hello@backlinkworks.com</a>.
+      </p>
+
+      <p>We value your feedback! Please let us know how we did by clicking below:</p>
+      <p>
+        <a class="btn" href="#">Leave Feedback</a>
+      </p>
+
+      <p>
+        Thank you for choosing <strong>Backlink Works</strong>!
+      </p>
+
+      <div class="footer">
+        <p>
+          Digitalking<br />
+          ====================================<br />
+          <a href="#">https://digitalkingonline.com/</a>
+        </p>
+        <p>
+          <a href="#">Privacy Policy</a> |
+          <a href="#">Terms & Conditions</a> |
+          <a href="#">Refund Policy</a> |
+          <a href="#">Contact Us</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

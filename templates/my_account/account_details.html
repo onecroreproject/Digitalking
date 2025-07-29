@@ -1,0 +1,45 @@
+{% extends 'my_account/account_base.html' %}
+{% block account_content %}
+  <div class="container my-5">
+    <form>
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <label for="firstName" class="form-label">First name *</label>
+          <input type="text" class="form-control" id="firstName" placeholder="Gowtham" />
+        </div>
+        <div class="col-md-6">
+          <label for="lastName" class="form-label">Last name *</label>
+          <input type="text" class="form-control" id="lastName" placeholder="" />
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="displayName" class="form-label">Display name *</label>
+        <input type="text" class="form-control" id="displayName" placeholder="yolo27552" />
+        <small class="text-muted fst-italic">This will be how your name will be displayed in the account section and in reviews</small>
+        
+      </div>
+      <div class="mb-5">
+        <label for="email" class="form-label">Email address *</label>
+        <input type="email" class="form-control" id="email" placeholder="yolo27552@gmail.com" />
+      </div>
+
+      <h6 class="mb-3 fw-bold">Password change</h6>
+      <div class="mb-3">
+        <label for="currentPassword" class="form-label">Current password leave blank to leave unchanged</label>
+        <input type="password" class="form-control" id="currentPassword" />
+      </div>
+
+      <div class="mb-3">
+        <label for="newPassword" class="form-label">New password leave blank to leave unchanged</label>
+        <input type="password" class="form-control" id="newPassword" />
+      </div>
+
+      <div class="mb-4">
+        <label for="confirmPassword" class="form-label">Confirm password</label>
+        <input type="password" class="form-control" id="confirmPassword" />
+      </div>
+
+      <button type="submit" class="btn btn-dark">Save Changes</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'my_account/account_base.html' %}
+{% block account_content %}
+<div class="container">
+  <div class="card shadow-lg border-0 rounded-3">
+    <div class="card-header bg-light text-white text-center rounded-top">
+      <h4 class="mb-0"><i class="bi bi-person-badge"></i> Billing Details</h4>
+    </div>
+    <div class="card-body p-4">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-person"></i> Full Name</p>
+          <p class="fw-semibold">{{ billing_detail.first_name }} {{ billing_detail.last_name }}</p>
+        </div>
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-building"></i> Company Name</p>
+          <p class="fw-semibold">{{ billing_detail.company_name|default:'—' }}</p>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <p class="text-muted small mb-1"><i class="bi bi-geo-alt"></i> Address</p>
+        <p class="fw-semibold">{{ billing_detail.address }}</p>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-map"></i> City</p>
+          <p class="fw-semibold">{{ billing_detail.city }}</p>
+        </div>
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-pin-map"></i> Pin Code</p>
+          <p class="fw-semibold">{{ billing_detail.pin_code }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-flag"></i> State</p>
+          <p class="fw-semibold">{{ billing_detail.state }}</p>
+        </div>
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-globe"></i> Country</p>
+          <p class="fw-semibold">{{ billing_detail.country }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-telephone"></i> Phone</p>
+          <p class="fw-semibold">{{ billing_detail.phone }}</p>
+        </div>
+        <div class="col-md-6">
+          <p class="text-muted small mb-1"><i class="bi bi-envelope"></i> Email</p>
+          <p class="fw-semibold">{{ billing_detail.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center bg-light">
+      <a href="{% url 'edit_billing_address' %}" class="btn btn-danger btn-sm px-4">
+        <i class="bi bi-pencil-square"></i> Edit Address
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+

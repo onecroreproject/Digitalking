@@ -1,0 +1,92 @@
+{% extends 'my_account/account_base.html' %}
+{% block content %}
+<br><br><br>
+<style>
+.success-container {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Success Icon */
+.success-icon {
+    width: 90px;
+    height: 90px;
+    background: #28a745;
+    color: #fff;
+    font-size: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 4px 15px rgba(40,167,69,0.5);
+}
+
+/* Heading */
+.success-container h2 {
+    color: #28a745;
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+/* Subtext */
+.success-container p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Order Details */
+.order-details {
+    text-align: left;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.order-details h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+.order-details p {
+    font-size: 15px;
+    margin: 3px 0;
+}
+
+/* Button */
+.success-container a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.success-container a:hover {
+    background: linear-gradient(45deg, #218838, #28a745);
+}
+</style>
+
+<div class="success-container">
+    <div class="success-icon">
+        ✓
+    </div>
+    <h2>Payment Successful!</h2>
+    <p>Your transaction was completed successfully. Thank you for your purchase.</p>
+ 
+    <a href="{% url 'index' %}">Go Back to Home</a>
+</div>
+
+{% endblock %}

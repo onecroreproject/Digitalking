@@ -1,0 +1,48 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block content %}
+  <div class="flex-wrap flex-md-nowrap align-items-center py-4">
+    <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+          <li class="breadcrumb-item">
+            <a href="/">
+              <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Upload Report</li>
+        </ol>
+      </nav>
+      <div class="text-center">
+        <h2 class="h4"></h2>
+      </div>
+    </div>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data" class="p-4 border border-primary rounded shadow-sm bg-white">
+    {% csrf_token %}
+    <div class="container">
+      <h3 class="text-center mb-4 text-primary fw-bold"><i class="bi bi-upload me-2"></i>Upload Report for Order ID : {{ order.order_id }}</h3>
+      {% for item in order.backlink_cart.all %}
+        <div class="row mb-4 align-items-center border-bottom pb-3">
+          <div class="col-md-4 text-end">
+            <label class="form-label fw-bold text-success">Upload for: <span class="text-dark">{{ item.package_name.title }}</span></label>
+          </div>
+          <div class="col-md-5">
+            <input type="file" name="report_{{ item.id }}" accept=".xls,.xlsx" class="form-control border-primary shadow-sm" required />
+          </div>
+          <div class="col-md-3 text-muted small">
+            <i class="bi bi-file-earmark-excel"></i> Only .xls or .xlsx allowed
+          </div>
+        </div>
+      {% endfor %}
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-md px-5 shadow-sm"><i class="bi bi-cloud-upload me-2"></i> Submit Reports</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}

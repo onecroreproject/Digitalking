@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to DigitalKing.com</title>
+    <link href="{% static 'assets/img/fav_icon.png' %}" rel="icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 650px;
+            background-color: #ffffff;
+            margin: 30px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+        }
+        .header {
+            background-color: #215c5c;
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+        .content {
+            padding: 30px;
+            color: #333;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            background-color: #f4f4f7;
+        }
+        .btn {
+            background-color: #215c5c;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .info-block {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to DigitalKing.com</h1>
+        </div>
+        <div class="content">
+            <p>Hello <strong>{{ name }}</strong>,</p>
+            <p>Thank you for registering with <strong>DigitalKing.com</strong>! Your account has been successfully created.</p>
+            <div class="info-block">
+                <p><strong>Your login Username/Email is:</strong> {{ email }}</p>
+                <p><strong>Password:</strong> (hidden for security)</p>
+            </div>
+            <p>For your protection, we do not send passwords via email. You can log in using the password you set during registration.</p>
+            <p>You can access your account to manage orders, update your profile, and much more:</p>
+            <a href="https://digitalking.com/user-account/" class="btn">Go to My Account</a>
+            <p>If you need help or have any questions, our support team is here for you.</p>
+            <p>Thanks for joining the DigitalKing community!</p>
+            <p style="margin-top: 30px;">Warm regards,<br><strong>The DigitalKing Team</strong></p>
+        </div>
+        <div class="footer">
+            <p>This is an automated email. Please do not reply.</p>
+            <p>If you didn’t sign up at <a href="https://digitalking.com">DigitalKing.com</a>, please ignore this message.</p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+            <p>DigitalKing.com<br>
+            14/4, Kempapura Main Road, Karnataka 560024, INDIA.<br>
+            <a href="mailto:support@digitalking.com">support@digitalking.com</a></p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a> | <a href="#">Refund Policy</a></p>
+        </div>
+    </div>
+</body>
+</html>

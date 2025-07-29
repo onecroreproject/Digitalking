@@ -1,0 +1,892 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <style>
+    .hover-effect {
+      transition: all 0.3s ease-in-out;
+    }
+    .hover-effect:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+
+  <section class="hero__v6 section" id="home">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="row">
+            <div class="col-lg-11">
+              <span class="hero-subtitle text-uppercase" data-aos="fade-up" data-aos-delay="0">welcome to Digitalking</span>
+              <h1 class="hero-title mb-3" data-aos="fade-up" data-aos-delay="100">Reliable Backlinks for Long-Term SEO Success</h1>
+              <p class="hero-description mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="200">Experience powerful SEO growth with trusted and proven backlink services. Backlinks created on sites with DA 40+ MOZ and DR 50+ Ahrefs Rated Sites.</p>
+              <div class="cta d-flex gap-2 mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="300">
+                <a class="btn" href="#pricing">Backlinks Pricing</a><a class="btn btn-white-outline" href="#">
+                  Backlinks Buying Guid<svg class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"></path>
+                    <path d="M7 17 17 7"></path>
+                  </svg>
+                </a>
+              </div>
+              <div class="logos mb-4" data-aos="fade-up" data-aos-delay="400">
+                <span class="logos-title text-uppercase mb-4 d-block">Trusted by major companies worldwide</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-img">
+            <img class="img-main img-fluid rounded-4" src="{% static 'home.webp' %}" alt="Hero Image" data-aos="fade-in" data-aos-delay="500" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing__v2" id="pricing">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-5 mx-auto text-center">
+          <span class="subtitle text-uppercase mb-3" data-aos="fade-up" data-aos-delay="0">Pricing</span>
+          <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">Backlinks Pricing</h2>
+          <p data-aos="fade-up" data-aos-delay="200">Affordable SEO Backlinks Pricing – High DA, Manual Link Building Services in India</p>
+        </div>
+      </div>
+      <div class="container" id="navbar" data-aos="fade-up" data-aos-delay="100">
+        <a href="#one-tier"><span><i class="bi bi-arrow-down-square"></i></span> One Tier Backlinks</a>
+        <a href="#two-tier"><span><i class="bi bi-arrow-down-square"></i></span> Tow Tier Backlinks</a>
+        <a href="#three-tier"><span><i class="bi bi-arrow-down-square"></i></span> Three Tier Backlinks</a>
+        <a href="#50-plan"><span><i class="bi bi-arrow-down-square"></i></span> 50K Backlinks</a>
+      </div>
+      <br />
+      <section id="one-tier" class="py-5" style="background: #f8f9fc;">
+        <br /><br /><br /><br />
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="fw-bold text-primary">1 Tier Backlinks Packages</h2>
+            <p class="text-muted">Maximize your SEO with high-quality Tier 1 backlinks and a structured link-building approach.</p>
+          </div>
+          <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <h4 class="fw-bold text-success">What Are Tier 1 Backlinks?</h4>
+              <p>
+                <strong>Tier 1 backlinks</strong> are the first line of links pointing directly to your <strong>website</strong> or <strong>landing page</strong>. These links are crucial for <strong>boosting rankings</strong> and passing authority. However, relying on them alone is not enough for <strong>competitive niches</strong>.
+              </p>
+
+              <p>
+                Our <strong>pricing plans</strong> combine <strong>Tier 1 links</strong> with deeper layers like <strong>Tier 2</strong> and <strong>Tier 3</strong> to strengthen your <strong>SEO foundation</strong>. This strategy improves <strong>link diversity</strong> and aligns with <strong>Google’s ranking algorithms</strong> for safer, long-term growth.
+              </p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Boost domain authority
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Safe and natural link profile
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Premium indexing services included
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6 text-center">
+              <img src="{% static 'tiers-01.webp' %}" alt="Tier Backlinks" class="img-fluid rounded shadow-lg" />
+            </div>
+          </div>
+
+          <!-- Pricing Section -->
+          <div class="row g-4 text-center">
+            <!-- Package 1 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">Standard</h5>
+                  <h3 class="text-primary">₹750 <small class="text-muted">(USD 12)</small></h3>
+                  <p class="text-muted">750+ Backlinks</p>
+                  <hr />
+                  <p class="small">All Package Features Included</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '1-tier-standard' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+            <!-- Package 2 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">Advance</h5>
+                  <h3 class="text-primary">₹1,000 <small class="text-muted">(USD 15)</small></h3>
+                  <p class="text-muted">1,200+ Backlinks</p>
+                  <hr />
+                  <p class="small">All Package Features Included</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '1-tier-advance' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+            <!-- Package 3 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">Premium</h5>
+                  <h3 class="text-primary">₹1,750 <small class="text-muted">(USD 24)</small></h3>
+                  <p class="text-muted">2,750+ Backlinks</p>
+                  <hr />
+                  <p class="small">All Package Features Included</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '1-tier-premium' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+            <!-- Package 4 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">Ultimate</h5>
+                  <h3 class="text-primary">$ 38 <small class="text-muted">(USD 38)</small></h3>
+                  <p class="text-muted">5,500+ Backlinks</p>
+                  <hr />
+                  <p class="small">All Package Features Included</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '1-tier-ultimate' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features Section -->
+          <div class="mt-5">
+            <h3 class="fw-bold text-center text-success mb-4">1 Tier Package Features</h3>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Backlinks From Blog Sites</h5>
+                    <p class="mb-0 text-muted">Articles with contextual backlinks published across blog sites.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Up To 10 Keywords</h5>
+                    <p class="mb-0 text-muted">Supports backlinks for up to 10 keywords in a single package.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Premium Indexing</h5>
+                    <p class="mb-0 text-muted">Indexing via premium services like OneHourIndexing, Lindexed.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">DA-Based Backlink Distribution</h5>
+                    <p class="mb-0 text-muted">Balanced link profile verified with MOZ DA metrics.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Feature 2 -->
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Backlinks For One URL</h5>
+                    <p class="mb-0 text-muted">Works for one website or YouTube/Google Listing.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Feature 3 -->
+
+              <!-- Feature 4 -->
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">100% Do-Follow Backlinks</h5>
+                    <p class="mb-0 text-muted">All created links are permanent and do-follow.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Detailed Excel Report</h5>
+                    <p class="mb-0 text-muted">Complete backlink report provided in Excel format.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Feature 7 -->
+
+              <!-- Feature 8 -->
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Ahrefs DR 50+ Verified</h5>
+                    <p class="mb-0 text-muted">Backlinks sourced from high-authority domains with DR 50+.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="two-tier" class="py-5" style="background: #f8f9fc;">
+        <br /><br /><br /><br />
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="fw-bold text-primary">2 Tier Backlinks Packages</h2>
+            <p class="text-muted">Boost your SEO with Tier 2 backlinks that strengthen your Tier 1 links for maximum ranking power.</p>
+          </div>
+
+          <!-- Info Section -->
+          <div class="row align-items-center mb-5">
+            <div class="col-lg-6 text-center">
+              <img src="{% static 'tiers-02.webp' %}" alt="Tier 2 Backlinks" class="img-fluid rounded shadow-lg" />
+            </div>
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <h4 class="fw-bold text-success">What Are Tier 2 Backlinks?</h4>
+              <p>
+                <strong>Tier 2 backlinks</strong> amplify the power of your <strong>Tier 1 links</strong>. Instead of pointing directly to your site, these links strengthen <strong>Tier 1 backlinks</strong>, passing <strong>authority</strong> and <strong>link juice</strong> indirectly. This <strong>layered approach</strong> speeds up <strong>rankings</strong> and boosts <strong>link equity</strong>.
+              </p>
+
+              <p>
+                Our <strong>pricing plans</strong> are designed to ensure <strong>link diversity</strong> and <strong>safety</strong> for long-term <strong>SEO success</strong>. Ideal for <strong>low-to-medium competition keywords</strong>.
+              </p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Strengthen Tier 1 backlinks
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Natural and safe link profile
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Faster ranking improvement
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Pricing Cards -->
+          <div class="row g-4 text-center">
+            <!-- Package 1 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">2 Tier Standard</h5>
+                  <h3 class="text-primary">₹750 <small class="text-muted">(USD 12)</small></h3>
+                  <p class="text-muted">Total 1,500+ Backlinks</p>
+                  <hr />
+                  <p class="small">300+ 1st Level Links</p>
+                  <p class="small">1,200+ 2nd Level Links</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '2-tier-standard' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+            <!-- Package 2 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">2 Tier Advance</h5>
+                  <h3 class="text-primary">₹1,000 <small class="text-muted">(USD 15)</small></h3>
+                  <p class="text-muted">Total 4,500+ Backlinks</p>
+                  <hr />
+                  <p class="small">900+ 1st Level Links</p>
+                  <p class="small">3,600+ 2nd Level Links</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '2-tier-advance' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+            <!-- Package 3 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">2 Tier Premium</h5>
+                  <h3 class="text-primary">₹1,750 <small class="text-muted">(USD 24)</small></h3>
+                  <p class="text-muted">Total 9,000+ Backlinks</p>
+                  <hr />
+                  <p class="small">1,800+ 1st Level Links</p>
+                  <p class="small">7,200+ 2nd Level Links</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '2-tier-premium' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+            <!-- Package 4 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">2 Tier Ultimate</h5>
+                  <h3 class="text-primary">$ 38<small class="text-muted">(USD 38)</small></h3>
+                  <p class="text-muted">Total 18,000+ Backlinks</p>
+                  <hr />
+                  <p class="small">3,600+ 1st Level Links</p>
+                  <p class="small">14,400+ 2nd Level Links</p>
+                  <p class="small">Report in 5 Working Days</p>
+                  <a href="{% url 'package' '2-tier-ultimate' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features Section -->
+          <div class="mt-5">
+            <h3 class="fw-bold text-center text-success mb-4">2 Tier Package Features</h3>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Contextual Blog Backlinks</h5>
+                    <p class="mb-0 text-muted">High-quality backlinks within content-rich articles published on top blogs.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">1 URL Per Package</h5>
+                    <p class="mb-0 text-muted">Supports one website, landing page, or YouTube/Google listing.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Target Up to 10 Keywords</h5>
+                    <p class="mb-0 text-muted">Optimize up to 10 unique keywords per package for better SEO targeting.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">100% Do-Follow Links</h5>
+                    <p class="mb-0 text-muted">All backlinks are permanent and do-follow for maximum SEO benefit.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Premium Indexing</h5>
+                    <p class="mb-0 text-muted">Indexed via premium services like OneHourIndexing and Lindexed.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Excel Report Delivery</h5>
+                    <p class="mb-0 text-muted">Complete backlink report provided in Excel format for easy tracking.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">DA-Based Distribution</h5>
+                    <p class="mb-0 text-muted">Natural backlink distribution across DA 30–70+ websites.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Ahrefs DR 50+ Verified</h5>
+                    <p class="mb-0 text-muted">Backlinks from high-authority sites with DR 50+ scores.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="three-tier" class="py-5" style="background: #f8f9fc;">
+        <br /><br /><br /><br />
+        <div class="container">
+          <!-- Section Header -->
+          <div class="text-center mb-5">
+            <h2 class="fw-bold text-primary">3 Tier Backlinks Packages</h2>
+            <p class="text-muted">The most powerful strategy for dominating competitive keywords using a pyramid-style 3-layer link-building approach.</p>
+          </div>
+
+
+          <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <h4 class="fw-bold text-success">Why Choose Tier 3 Backlinks?</h4>
+              <p>
+                <strong>Tier 3 backlinks</strong> use a <strong>three-layer pyramid structure</strong>: <strong>Tier 1 links</strong> point to your <strong>website</strong>, <strong>Tier 2</strong> strengthens Tier 1, and <strong>Tier 3</strong> reinforces Tier 2. This approach maximizes <strong>authority flow</strong> and creates a <strong>natural, robust backlink profile</strong>.
+              </p>
+              <p>
+                Ideal for <strong>competitive keywords</strong>, our <strong>Tier 3 packages</strong> deliver <strong>long-term SEO growth</strong> and <strong>algorithm-friendly link distribution</strong>.
+              </p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Maximum link equity transfer
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Natural link pyramid structure
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill text-success"></i> Perfect for competitive niches
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6 text-center">
+              <img src="{% static 'tiers-03.webp' %}" alt="Tier 3 Backlinks" class="img-fluid rounded shadow-lg" />
+            </div>
+          </div>
+
+          <!-- Pricing Cards -->
+          <div class="row g-4 text-center">
+            <!-- Package 1 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">3 Tier Standard</h5>
+                  <h3 class="text-primary">₹750 <small class="text-muted">(USD 12)</small></h3>
+                  <p class="text-muted">Total 3,200 Backlinks</p>
+                  <hr />
+                  <p class="small">200 1st Level Links</p>
+                  <p class="small">600 2nd Level Links</p>
+                  <p class="small">2,400 3rd Level Links</p>
+                  <p class="small">No Deep Level Indexing</p>
+                  <p class="small">Report in 5 Days</p>
+                  <a href="{% url 'package' '3-tier-standard' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Package 2 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">3 Tier Advance</h5>
+                  <h3 class="text-primary">₹1,000 <small class="text-muted">(USD 15)</small></h3>
+                  <p class="text-muted">Total 9,600 Backlinks</p>
+                  <hr />
+                  <p class="small">600 1st Level Links</p>
+                  <p class="small">1,800 2nd Level Links</p>
+                  <p class="small">7,200 3rd Level Links</p>
+                  <p class="small">No Deep Level Indexing</p>
+                  <p class="small">Report in 7 Days</p>
+                  <a href="{% url 'package' '3-tier-advance' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Package 3 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">3 Tier Premium</h5>
+                  <h3 class="text-primary">₹1,750 <small class="text-muted">(USD 24)</small></h3>
+                  <p class="text-muted">Total 19,200 Backlinks</p>
+                  <hr />
+                  <p class="small">1,200 1st Level Links</p>
+                  <p class="small">3,600 2nd Level Links</p>
+                  <p class="small">14,400 3rd Level Links</p>
+                  <p class="small text-success fw-bold">Deep Level Indexing*</p>
+                  <p class="small">Report in 8 Days</p>
+                  <a href="{% url 'package' '3-tier-premium' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Package 4 -->
+            <div class="col-md-6 col-lg-3">
+              <div class="card border-0 shadow-lg rounded-4 h-100 hover-effect">
+                <div class="card-body p-4">
+                  <h5 class="fw-bold text-dark">3 Tier Ultimate</h5>
+                  <h3 class="text-primary">$ 40 <small class="text-muted">(USD 38)</small></h3>
+                  <p class="text-muted">Total 38,400 Backlinks</p>
+                  <hr />
+                  <p class="small">2,400 1st Level Links</p>
+                  <p class="small">7,200 2nd Level Links</p>
+                  <p class="small">28,800 3rd Level Links</p>
+                  <p class="small text-success fw-bold">Deep Level Indexing*</p>
+                  <p class="small">Report in 10 Days</p>
+                  <a href="{% url 'package' '3-tier-ultimate' %}" class="btn btn-outline-primary btn-sm w-100 mt-3">Select Package</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features Section -->
+          <div class="mt-5">
+            <h3 class="fw-bold text-center text-success mb-4">3 Tier Package Features</h3>
+            <div class="row g-3">
+              <!-- Each Feature -->
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Contextual Blog Network Links</h5>
+                    <p class="mb-0 text-muted">Articles featuring backlinks placed on top-tier blogs for authority boost.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">One Target URL Per Package</h5>
+                    <p class="mb-0 text-muted">Supports your main domain, landing page, YouTube channel, or Google Business.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Up to 10 Keywords Supported</h5>
+                    <p class="mb-0 text-muted">Optimize multiple keywords in one package for wider reach.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">100% Do-Follow Links</h5>
+                    <p class="mb-0 text-muted">SEO-friendly do-follow backlinks placed in real content.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Permanent Placement</h5>
+                    <p class="mb-0 text-muted">Lost links? We replace them at no cost.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Verified DR 50+ Domains</h5>
+                    <p class="mb-0 text-muted">Links from domains with Ahrefs DR 50+ for high authority.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Excel Report Delivery</h5>
+                    <p class="mb-0 text-muted">Clean report with backlink details, ready for white-label use.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Deep Indexing for Premium/Ultimate</h5>
+                    <p class="mb-0 text-muted">Advanced indexing ensures maximum link authority flow.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">DA-Based Distribution</h5>
+                    <p class="mb-0 text-muted">Backlinks spread across DA 30–70+ domains for natural profile.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex p-3 bg-white shadow-sm rounded align-items-start">
+                  <i class="bi bi-check-circle-fill text-success fs-3 me-3"></i>
+                  <div>
+                    <h5 class="mb-1">Premium Indexing</h5>
+                    <p class="mb-0 text-muted">Indexed via Lindexed, OneHourIndexing, and more for faster visibility.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="50-plan">
+        <br /><br /><br /><br /><br /><br />
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <h2 class="package-title1"><span>1 Tier 50,000 Backlinks</span></h2>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-md-8 mb-4 order-2 order-md-1" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-4 rounded-4 price-table h-100" style="background-color: #eff6ecff;">
+              <div class="package-features" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="package-title">Package Features</h2>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>Contextual Blog-Based Backlinks</h4>
+                    <p>We create articles that include contextual backlinks and distribute them across a wide selection of blog platforms for maximum reach.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>Single URL Targeting</h4>
+                    <p>Each backlink package is dedicated to one specific URL, including websites, landing pages, YouTube videos, or Google Maps listings.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>Keyword Limit per Package</h4>
+                    <p>Every plan supports up to 10 keyword targets, enabling focused and effective SEO campaigns.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>100% Do-Follow Links</h4>
+                    <p>We ensure that all backlinks are do-follow, contributing full SEO value from the referring domains.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>Lasting Backlink Placement</h4>
+                    <p>Backlinks are placed with permanence in mind. If any are lost, we’ll replace them without extra cost.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>Advanced Indexing Services</h4>
+                    <p>We utilize top-tier indexing tools like Lindexed, Indexification, OneHourIndexing, and ping services to speed up search engine recognition.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>Excel-Based Link Report</h4>
+                    <p>After delivery, you’ll receive a white-label Excel file containing all backlinks, perfect for reselling or client reports.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>MOZ Verified Domain Authority</h4>
+                    <p>We build links across a verified DA spectrum: 6% DA 30+, 4% DA 40+, 23% DA 50+, 33% DA 60+, and 35% DA 70+, as checked via MOZ tools.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="bi bi-check2-all" style="color: #215C5C;"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h4>DR 50+ Domains from Ahrefs</h4>
+                    <p>All referring sites have a Domain Rating (DR) of 50 or higher, verified using Ahrefs, ensuring powerful, high-quality link signals.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 order-1 order-md-2 text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-4 rounded-4 popular price-table">
+              <h3 class="text-center">1 Tier 50,000 Links</h3>
+              <div class="price mb-4">
+                <strong>₹3,000</strong>
+                <h6 style="color: white;">(USD 38$)</h6>
+              </div>
+              <p>Total 50,000+ Backlinks</p>
+              <hr />
+              <p>All Package Features Included</p>
+              <hr />
+              <p>Report in 12 Working Days</p>
+
+              <div>
+                <a class="btn btn-white hover-outline" href="{% url 'package' '50000-backlinks-1-tier-package' %}">Select Package</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section howitworks__v1" id="how-it-works">
+    <div class="container">
+      <!-- Title -->
+      <div class="row mb-5">
+        <div class="col-md-8 text-center mx-auto">
+          <span class="subtitle text-uppercase mb-3" data-aos="fade-up" data-aos-delay="0">How It Works</span>
+          <h2 data-aos="fade-up" data-aos-delay="100">How We Build High-Quality Backlinks</h2>
+          <p data-aos="fade-up" data-aos-delay="200">We follow a streamlined process to deliver high-quality backlinks. Here’s an overview:</p>
+        </div>
+      </div>
+
+      <div class="row g-md-5">
+        <!-- Step 1 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card text-center h-100 position-relative" data-aos="fade-up" data-aos-delay="0">
+            <div data-aos="fade-right" data-aos-delay="500">
+              <img class="arch-line" src="{% static 'assets/images/arch-line.svg' %}" alt="" />
+            </div>
+            <span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">1</span>
+            <h3 class="fs-5 mb-4">Place Order</h3>
+            <p>
+              Submit your website details and keywords. We verify everything and set your order to <strong>Processing</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
+          <div class="step-card reverse text-center h-100 position-relative">
+            <div data-aos="fade-right" data-aos-delay="1100">
+              <img class="arch-line reverse" src="{% static 'assets/images/arch-line-reverse.svg' %}" alt="" />
+            </div>
+            <span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">2</span>
+            <h3 class="fs-5 mb-4">Strategy & Content</h3>
+            <p>We analyze high DR domains, create a strategy, and write keyword-optimized articles for your campaign.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="1200">
+          <div class="step-card text-center h-100 position-relative">
+            <div data-aos="fade-right" data-aos-delay="1700">
+              <img class="arch-line" src="{% static 'assets/images/arch-line.svg' %}" alt="" />
+            </div>
+            <span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">3</span>
+            <h3 class="fs-5 mb-4">Backlink Placement</h3>
+            <p>Articles are posted on authority sites. We verify links and submit them for indexing using premium services.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="1800">
+          <div class="step-card last text-center h-100 position-relative">
+            <span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">4</span>
+            <h3 class="fs-5 mb-4">Report & Completion</h3>
+            <p>
+              You receive a detailed backlink report via email and dashboard. Order status is marked <strong>Completed</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- End How it works -->
+
+  <!-- ======= FAQ ======= -->
+  <section class="section faq__v2" id="faq">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-md-6 col-lg-7 mx-auto text-center">
+          <span class="subtitle text-uppercase mb-3" data-aos="fade-up" data-aos-delay="0">FAQ</span>
+          <h2 class="h2 fw-bold mb-3" data-aos="fade-up" data-aos-delay="0">Frequently Asked Questions</h2>
+          <p data-aos="fade-up" data-aos-delay="100">Utilize our tools to develop your concepts and bring your vision to life. Once complete, effortlessly share your creations.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mx-auto" data-aos="fade-up" data-aos-delay="200">
+          <div class="faq-content">
+            <div class="accordion custom-accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">What services does your web agency offer?</button></h2>
+                <div class="accordion-collapse collapse show" id="panelsStayOpen-collapseOne">
+                  <div class="accordion-body">Our web agency offers a comprehensive range of services including web design and development, e-commerce solutions, SEO optimization, content creation, website maintenance, and digital marketing strategies. We tailor our services to meet the unique needs of each client, ensuring a customized approach to every project.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">How much does it cost to build a website?</button></h2>
+                <div class="accordion-collapse collapse" id="panelsStayOpen-collapseTwo">
+                  <div class="accordion-body">The cost of building a website can vary widely depending on the complexity, features, and specific requirements of your project. We offer several pricing packages to accommodate different budgets and needs. After an initial consultation, we can provide a detailed quote based on your specific goals and objectives.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">How long does it take to design and develop a website?</button></h2>
+                <div class="accordion-collapse collapse" id="panelsStayOpen-collapseThree">
+                  <div class="accordion-body">The timeline for designing and developing a website depends on the project&apos;s complexity and scope. Typically, a standard business website takes about 4-6 weeks to complete, while more complex projects like e-commerce sites or custom applications may take longer. We work closely with our clients to establish a realistic timeline and keep you informed throughout the process.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">Will my website be mobile-friendly?</button></h2>
+                <div class="accordion-collapse collapse" id="panelsStayOpen-collapseFour">
+                  <div class="accordion-body">Absolutely! All the websites we design and develop are fully responsive, meaning they are optimized to work seamlessly across all devices, including desktops, tablets, and smartphones. Ensuring a great user experience on mobile devices is a top priority in our development process.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">Do you provide ongoing support and maintenance for websites?</button></h2>
+                <div class="accordion-collapse collapse" id="panelsStayOpen-collapseFive">
+                  <div class="accordion-body">Yes, we offer ongoing support and maintenance services to ensure your website remains up-to-date, secure, and functioning smoothly. Our maintenance packages can include regular updates, security monitoring, backups, and technical support to address any issues that may arise. We&apos;re here to help you keep your website running efficiently long after it&apos;s launched.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End FAQ -->
+  </section>
+  <!-- End FAQ -->
+
+  <!-- ======= Contact ======= -->
+{% endblock %}

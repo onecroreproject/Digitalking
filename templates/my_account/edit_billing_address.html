@@ -1,0 +1,59 @@
+{% extends 'my_account/account_base.html' %}
+{% block account_content %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class="container">
+      <h5 class="text-uppercase fw-bold text-orange mb-4" style="color: #216e42ff;">Billing Details</h5>
+      <div class="row">
+        <!-- First Column -->
+        <div class="col-md-6 col-12">
+          <div class="mb-3">
+            <label class="form-label">First Name *</label>
+            {{ form.first_name }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Last Name (optional)</label>
+            {{ form.last_name }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Company Name (optional)</label>
+            {{ form.company_name }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Address (optional)</label>
+            {{ form.address }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Town / City *</label>
+            {{ form.city }}
+          </div>
+        </div>
+        <div class="col-md-6 col-12">
+          <div class="mb-3">
+            <label class="form-label">PIN Code *</label>
+            {{ form.pin_code }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">State *</label>
+            {{ form.state }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Country *</label>
+            {{ form.country }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone Number *</label>
+            {{ form.phone }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email Address *</label>
+            {{ form.email }}
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-orange w-100 fw-bold py-2">Save Address</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}

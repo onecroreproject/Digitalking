@@ -1,0 +1,216 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Backlinks</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+
+    <link href="{% static 'assets/vendors/bootstrap/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/vendors/bootstrap-icons/font/bootstrap-icons.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/vendors/glightbox/glightbox.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/vendors/swiper/swiper-bundle.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/vendors/aos/aos.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script>
+      ;(function () {
+        const storedTheme = localStorage.getItem('theme') || 'light'
+        document.documentElement.setAttribute('data-bs-theme', storedTheme)
+      })()
+    </script>
+    <style>
+      .otp-card {
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .card-header {
+        background-color: rgb(82, 119, 173);
+        color: white;
+        border-radius: 15px 15px 0 0 !important;
+      }
+      .otp-input {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        text-align: center;
+        margin: 0 6px;
+        border-radius: 8px;
+        border: 2px solid #ced4da;
+        font-weight: 600;
+      }
+      .otp-input:focus {
+        border-color: rgb(33, 92, 92);
+        box-shadow: 0 0 0 0.25rem rgba(82, 119, 173, 0.25);
+      }
+      .verify-btn {
+        background-color: rgb(82, 119, 173);
+        border-color: rgb(82, 119, 173);
+      }
+      .verify-btn:hover {
+        background-color: rgb(65, 95, 138);
+        border-color: rgb(65, 95, 138);
+      }
+      .resend-link {
+        color: rgb(82, 119, 173);
+        text-decoration: none;
+      }
+      .resend-link:hover {
+        text-decoration: underline;
+      }
+      /* Hide the original form fields visually but keep them accessible */
+      .hidden-form-field {
+        position: absolute;
+        opacity: 0;
+        height: 0;
+        width: 0;
+        z-index: -1;
+      }
+      
+      .package-features {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+      
+      .package-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        color: #215c5c;
+        border-bottom: 2px solid #215c5c;
+        display: inline-block;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+      }
+      
+      .package-title1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+        font-weight: 600;
+        color: #215c5c;
+      }
+      
+      .package-title1 span {
+        display: inline-block;
+        border-bottom: 2px solid #215c5c;
+        padding-bottom: 5px;
+      }
+      
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 25px;
+      }
+      
+      .feature-icon {
+        color: #215c5c;
+        font-size: 24px;
+        margin-top: 4px;
+      }
+      
+      .feature-content {
+        max-width: 800px;
+      }
+      
+      .feature-content h4 {
+        margin: 0;
+        font-size: 18px;
+        color: #215c5c;
+        font-weight: 600;
+      }
+      
+      .feature-content p {
+        margin: 4px 0 0;
+        color: #333;
+        font-size: 15px;
+      }
+      
+      /* Navbar container */
+      #navbar {
+        position: sticky;
+        top: 75px;
+        z-index: 1000;
+        background-color: #215c5c;
+        border-radius: 14px;
+        padding: 10px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+      
+      /* Navbar links styled as buttons */
+      #navbar a {
+        background-color: #ffffff; /* white button */
+        color: #215c5c; /* dark text */
+        border: 2px solid #ffffff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+      }
+      
+      /* Hover effect */
+      #navbar a:hover {
+        background-color: #f2f2f2;
+        border-color: #f2f2f2;
+        color: #000;
+      }
+      
+      /* Active link */
+      #navbar a.active {
+        background-color: #04aa6d;
+        color: #fff;
+        border-color: #04aa6d;
+      }
+      
+      /* Responsive behavior */
+      @media (max-width: 768px) {
+        #navbar {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-wrap">
+      {% include 'navbar.html' %}
+      <main>
+        {% block content %}
+
+        {% endblock %}
+        <!-- ======= Footer ======= -->
+        {% include 'footer.html' %}
+        <!-- End Footer -->
+      </main>
+      {% include 'message.html' %}
+    </div>
+
+    <button id="back-to-top"><i class="bi bi-arrow-up-short"></i></button>
+
+    <script src="{% static 'assets/vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/gsap/gsap.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/isotope/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/glightbox/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/aos/aos.js' %}"></script>
+    <script src="{% static 'assets/vendors/purecounter/purecounter.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'assets/js/send_email.js' %}"></script>
+    <!-- End JavaScripts -->
+  </body>
+</html>

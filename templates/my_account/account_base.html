@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .account-header {
+      background-color: rgba(225, 240, 222, 1);
+      color: white;
+      padding: 23px 10px;
+      text-align: center;
+    }
+    
+    .account-header h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    
+    .sidebar {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      position: sticky;
+      top: 80px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar a {
+      text-decoration: none;
+      color: #000;
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+    }
+    
+    .sidebar a i {
+      margin-right: 10px;
+    }
+    
+    .dashboard-cards .card {
+      transition: 0.3s;
+    }
+    
+    .dashboard-cards .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .user-image {
+      width: 100px;
+      height: 100px;
+      background-color: #6c757d;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .sidebar {
+        position: sticky;
+        top: 80px;
+        z-index: 100;
+        transition: all 0.3s ease;
+      }
+    
+      .sidebar.unstick {
+        position: static !important;
+      }
+    }
+  </style>
+
+  <div class="account-header">
+    <br /><br />
+    <div class="user-image d-flex justify-content-center align-items-center">
+      <i class="bi bi-person-fill fs-1 text-white"></i>
+    </div>
+    <h2>Hello <strong>{{ request.user.first_name }}</strong>, Welcome Back!</h2>
+    <h1>My Account</h1>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row flex-column-reverse flex-md-row">
+      <div class="col-md-3 order-1 order-md-0">
+        <div class="sidebar" id="stickySidebar">
+          <a href="{% url 'my_account' %}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+          <a href="{% url 'orders' %}"><i class="bi bi-cart3"></i> Orders</a>
+          <a href="{% url 'downloads' %}"><i class="bi bi-download"></i> Downloads</a>
+          <a href="{% url 'user_billing_address' %}"><i class="bi bi-geo-alt"></i> Billing Address</a>
+          <a href="{% url "user_customer_query" %}"><i class="bi bi-ticket-detailed"></i> Customer Query</a>
+          <a href="{% url 'signout' %}"><i class="bi bi-box-arrow-right"></i> Log out</a>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="col-md-9 order-0 order-md-1" id="mainContent">
+        <div id="contentWrapper">
+          {% block account_content %}
+            <!-- Your orders table goes here -->
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @media (min-width: 768px) {
+      .sidebar {
+        position: sticky;
+        top: 80px;
+        z-index: 100;
+        transition: all 0.3s ease;
+      }
+    
+      .sidebar.unstick {
+        position: static !important;
+      }
+    }
+  </style>
+{% endblock %}

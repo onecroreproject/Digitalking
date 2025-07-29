@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Email Verification Code</title>
+    <link href="{% static 'assets/img/fav_icon.png' %}" rel="icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f7;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            background-color: #ffffff;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .header {
+            background-color: rgb(32, 93, 93);
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            color: white;
+            margin: 0;
+        }
+        .content {
+            padding: 30px;
+            text-align: left;
+        }
+        .otp-code {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #333;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>DigitalKing.com</h1>
+        </div>
+        <div class="content">
+            <h2>Email Verification Code</h2>
+            <p>Thank you for signing up with <strong>DigitalKing.com</strong>!</p>
+            <p>To activate your account, please use the verification code below:</p>
+            <div class="otp-code">{{ otp }}</div>
+            <p>This code is valid for the next 1 hour.</p>
+            <p>You’re receiving this email because a registration or login attempt was made using your email on <strong>https://digitalking.com</strong>.</p>
+            <p>If this wasn’t you, please ignore and delete this message.</p>
+            <p><em>This is an automated message. Please do not reply.</em></p>
+        </div>
+        <div class="footer">
+            &copy; 2025 DigitalKing.com | All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

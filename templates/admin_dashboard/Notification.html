@@ -1,0 +1,63 @@
+<!-- Include Notyf CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const notyf = new Notyf({
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#3e8f4bff',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'span',
+                        color: '#fff'
+                    },
+                    dismissible: true
+                },
+                {
+                    type: 'error',
+                    background: '#FA5252',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'span',
+                        color: '#fff'
+                    },
+                    dismissible: true
+                },
+                {
+                    type: 'warning',
+                    background: '#fab005',
+                    icon: {
+                        className: 'fas fa-exclamation',
+                        tagName: 'span',
+                        color: '#fff'
+                    },
+                    dismissible: true
+                },
+                {
+                    type: 'info',
+                    background: '#339af0',
+                    icon: {
+                        className: 'fas fa-info',
+                        tagName: 'span',
+                        color: '#fff'
+                    },
+                    dismissible: true
+                }
+            ]
+        });
+
+        {% for message in messages %}
+            notyf.open({
+                type: '{{ message.tags }}',
+                message: '{{ message|escapejs }}'
+            });
+        {% endfor %}
+    });
+</script>

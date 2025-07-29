@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <section class="section auth__v1 signup_v1 first-section d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+          <div class="auth--inner mx-auto">
+            <h1 style="text-align: center;" class="fs-2 fw-bold">Sign up</h1>
+            <p style="text-align: center;">Register now and unlock exclusive member</p>
+
+            <form method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="form-label" for="name">Frist Name</label>
+                {{ form.first_name }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                {{ form.email }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                {{ form.password1 }}
+                <small class="text-muted fst-italic">Must be atleast 8 characters.</small>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="password">Confirm Password</label>
+                {{ form.password2 }}
+                <small class="text-muted fst-italic">Must be atleast 8 characters.</small>
+              </div>
+
+              <button class="mb-2 w-100 btn btn-primary rounded-2" type="submit">Sign up</button>
+              <div class="text-center">
+                <span>Already have an account?</span> <a class="text-decoration-none fw-semibold" href="{% url 'signin' %}">Log in</a>
+              </div>
+            </form>
+            <!-- End Form -->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <img src="{% static 'assets/images/auth/register2.webp' %}" alt="login_image" height="100%" width="100%" />
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

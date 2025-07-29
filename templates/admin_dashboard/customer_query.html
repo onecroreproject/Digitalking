@@ -1,0 +1,72 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+          <li class="breadcrumb-item">
+            <a href="/">
+              <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Customer Querys</li>
+        </ol>
+      </nav>
+      <h2 class="h4">Customer Querys</h2>
+    </div>
+  </div>
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <table id="myTable" class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th class="border-0">#</th>
+          <th class="border-0">User</th>
+          <th class="border-0">Subject</th>
+          <th class="border-0">message</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for query in querys %}
+          <tr>
+            <td>
+              <a href="#" class="text-primary fw-bold">{{ forloop.counter }}</a>
+            </td>
+            <td>{{ query.user.first_name }}</td>
+            <td>{{ query.subject }}</td>
+            <td>
+              <span class="text-truncate d-inline-block" style="max-width: 200px;" title="{{ query.message }}">{{ query.message }}</span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-pill btn-outline-info" data-bs-toggle="modal" data-bs-target="#modal-default"><i class="bi bi-eye"></i>&nbsp;&nbsp;View</button>
+            </td>
+          </tr>
+          <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>{{ query.message }}</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="{{ query.attachment.url }}" class="btn btn-secondary text-gray-600 ms-auto">View Attachment</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <tr>
+            <td colspan="7" class="text-center text-muted">No Reviews found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

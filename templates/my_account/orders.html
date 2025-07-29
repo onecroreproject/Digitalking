@@ -1,0 +1,144 @@
+{% extends 'my_account/account_base.html' %}
+{% block account_content %}
+  {% if orders %}
+    <style>
+      .cancelled {
+        color: #ff5a00;
+        font-weight: 500;
+      }
+      
+      .order-number {
+        color: #2e2a5f;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      
+      .view-btn {
+        background-color: #ff5a00;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        font-weight: bold;
+        border-radius: 5px;
+      }
+      
+      .view-btn:hover {
+        background-color: #056b40ff;
+      }
+    </style>
+    <div class="container">
+      <div class="table-responsive d-none d-md-block">
+        <table class="table align-middle">
+          <thead class="border-bottom">
+            <tr>
+              <th>Order</th>
+              <th>Date</th>
+              <th>Payment Status</th>
+              <th>Total</th>
+              <th>Delivery Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+              <tr>
+                <td>
+                  <a href="#" class="order-number">#{{ order.order_id }}</a>
+                </td>
+                <td>{{ order.created_at }}</td>
+                <td>
+                  {% if order.payment_status == 'Completed' %}
+                    <span class="text-light bg-success rounded">&nbsp;Completed&nbsp;</span>
+                  {% elif order.payment_status == 'Pending' %}
+                    <span class="text-light bg-warning rounded">&nbsp;Pending&nbsp;</span>
+                  {% elif order.payment_status == 'Cancelled' %}
+                    <span class="text-light bg-danger rounded">&nbsp;Cancelled&nbsp;</span>
+                  {% endif %}
+                </td>
+                <td>
+                  ₹ {{ order.total_amount }} for {{ order.backlink_cart.count }} item{{ order.backlink_cart.count|pluralize }}
+                  <br />
+                  {% for item in order.backlink_cart.all %}
+                    <small>🔗 {{ item.package_name }}</small><br />
+                  {% empty %}
+                    <small>No items</small>
+                  {% endfor %}
+                </td>
+                <td>
+                  {% if order.work_status == 'Delivered' %}
+                  <span class="text-light bg-success rounded">&nbsp;Delivered&nbsp;</span>
+                  {% elif order.work_status == 'onprogress' %}
+                  <span class="text-light bg-warning rounded">&nbsp;On Progress&nbsp;</span>
+                  {% elif order.work_status == 'Payment_pending' %}
+                  <a class="btn btn-sm text-white fw-bold px-3 py-2" href="{% url "payment_page" order.id %}">&nbsp;Pay Now&nbsp;</a>
+                  {% else %}
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{% url 'view_order' order.order_id %}" 
+                    class="btn btn-sm text-white fw-bold px-3 py-2"><i class="bi bi-eye-fill"></i></a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-block d-md-none">
+        {% for order in orders %}
+          <div class="border rounded p-3 mb-3 shadow-sm">
+            <div class="fw-bold text-dark mb-2">#{{ order.order_id }}</div>
+
+            <div class="row mb-1">
+              <div class="col-6 text-muted small">Date</div>
+              <div class="col-6 text-end">{{ order.created_at }}</div>
+            </div>
+
+            <div class="row mb-1">
+              <div class="col-6 text-muted small">Status</div>
+              <div class="col-6 text-end text-warning">
+                {% if order.payment_status == 'Completed' %}
+                  <span class="text-light bg-success rounded">&nbsp;Completed&nbsp;</span>
+                {% elif order.payment_status == 'Pending' %}
+                  <span class="text-light bg-warning rounded">&nbsp;Pending&nbsp;</span>
+                {% elif order.payment_status == 'Cancelled' %}
+                  <span class="text-light bg-danger rounded">&nbsp;Cancelled&nbsp;</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-6 text-muted small">Total</div>
+              <div class="col-6 text-end">₹ {{ order.total_amount }} for {{ order.backlink_cart.count }} item{{ order.backlink_cart.count|pluralize }}</div>
+            </div>
+
+            <div class="mb-3">
+              {% for item in order.backlink_cart.all %}
+                <div class="small text-muted">🔗 {{ item.package_name }}</div>
+              {% empty %}
+                <div class="small text-danger">No backlink items</div>
+              {% endfor %}
+            </div>
+            <a href="{% url 'view_order' order.order_id %}" class="btn btn-sm w-100 text-white fw-bold"><i class="bi bi-card-checklist"></i> &nbsp;VIEW ORDER</a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <style>
+      .order-number {
+        color: #2e2a5f;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .cancelled {
+        color: rgb(34, 93, 93);
+        font-weight: 500;
+      }
+    </style>
+  {% else %}
+    <div class="card mb-4" style="background-color: rgba(247, 245, 218, 1)">
+      <p class="mt-3 text-center">It looks like this is your first time here. Click below to start your order.</p>
+    </div>
+    <a href="/#pricing" class="btn btn-sm btn-primary mt-2">Start Your Order &nbsp;<i class="bi bi-box-arrow-right fs-5"></i></a>
+  {% endif %}
+{% endblock %}

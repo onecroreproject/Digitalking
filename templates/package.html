@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <!--                {% if package_name == '1-tier-standard' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">1 Tier Standard</h2>
+          {% elif package_name == '1-tier-advance' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">1 Tier Advance</h2>
+          {% elif package_name == '1-tier-premium' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">1 Tier Premium</h2>
+          {% elif package_name == '1-tier-ultimate' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">1 Tier Ultimate</h2>
+          {% elif package_name == '2-tier-standard' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">2 Tier Standard</h2>
+          {% elif package_name == '2-tier-advance' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">2 Tier Advance</h2>
+          {% elif package_name == '2-tier-premium' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">2 Tier Premium</h2>
+          {% elif package_name == '2-tier-ultimate' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">2 Tier Ultimate</h2>
+          {% elif package_name == '3-tier-standard' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">3 Tier Standard</h2>
+          {% elif package_name == '3-tier-advance' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">3 Tier Advance</h2>
+          {% elif package_name == '3-tier-premium' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">3 Tier Premium</h2>
+          {% elif package_name == '3-tier-ultimate' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">3 Tier Ultimate</h2>
+          {% elif package_name == '50000-backlinks-1-tier-package' %}
+            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">50,000 Backlinks (1 Tier Package)</h2>
+          {% endif %}                -->
+
+  <section class="section features__v2" id="features">
+    <br /><br />
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-lg-flex p-2 p-lg-5 rounded-4 content" data-aos="fade-in" data-aos-delay="0">
+            <div class="row">
+
+              <div class="col-lg-6" >
+                <div class="card p-4 text-center rounded-4" style="background-color: #e4e4e4ff;" data-aos="fade-up" data-aos-delay="100">
+                  <h3 class="text-uppercase mb-3">Package Price</h3>
+                  <h4 class="fs-3">$ {{package_details.price}}</h4>
+                </div>
+                <br />
+              </div>
+              <div class="col-lg-6 mb-5 mb-lg-0 text-center" data-aos="fade-up" data-aos-delay="0">
+                <div class="row">
+                  <div class="col-lg-11">
+                    <div class="h-100 flex-column justify-content-between d-flex">
+                      <div>
+                        <div class="mb-4">
+                          <h5 class="fw-bold text-uppercase" style="color: #2f294d; position: relative; display: inline-block;">
+                            BACKLINK PACKAGE
+                            <span style="
+      display: block;
+      height: 3px;
+      width: 200px;
+      background-color: #ff5a00;
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+    "></span>
+                          </h5>
+                          <h3 class="fw-semibold mt-3" style="color: #1b8c4aff;">
+                            {% if package_name == '1-tier-standard' %}
+                              Standard — 1 Tier Package
+                            {% elif package_name == '1-tier-advance' %}
+                              Advance — 1 Tier Package
+                            {% elif package_name == '1-tier-premium' %}
+                              Premium — 1 Tier Package
+                            {% elif package_name == '1-tier-ultimate' %}
+                              Ultimate — 1 Tier Package
+                            {% elif package_name == '2-tier-standard' %}
+                              Standard — 2 Tier Package
+                            {% elif package_name == '2-tier-advance' %}
+                              Advance — 2 Tier Package
+                            {% elif package_name == '2-tier-premium' %}
+                              Premium — 2 Tier Package
+                            {% elif package_name == '2-tier-ultimate' %}
+                              Ultimate — 2 Tier Package
+                            {% elif package_name == '3-tier-standard' %}
+                              Standard — 3 Tier Package
+                            {% elif package_name == '3-tier-advance' %}
+                              Advance — 3 Tier Package
+                            {% elif package_name == '3-tier-premium' %}
+                              Premium — 3 Tier Package
+                            {% elif package_name == '3-tier-ultimate' %}
+                              Ultimate — 3 Tier Package
+                            {% elif package_name == '50000-backlinks-1-tier-package' %}
+                              50,000 Backlinks — 1 Tier Package
+                            {% endif %}
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <hr />
+              <div class="col-md-6">
+                <div data-aos="fade-up" data-aos-delay="300" style="border-style: dashed;border-radius: 10px;color:rgb(34,93,93);background-color: white;" class="container" data-aos="fade-up" data-aos-delay="300">
+                  <br />
+                  <h4 style="text-align: center;">Enter All Necessary Details Below</h4>
+                  <br />
+                  <form id="backlinkForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row gap-3 mb-3">
+                      <!-- Website URL -->
+                      <div class="col-md-12">
+                        <label class="mb-2" for="website_url">Website URL&nbsp;(required) <span class="text-danger">*</span></label>
+                        <input class="form-control" type="url" name="website_url" id="website_url" required />
+                      </div>
+
+                      <!-- Keyword Fields -->
+                      <div class="col-md-12" id="keyword-fields">
+                        {% for i in range %}
+                          <div class="keyword-group mb-2 d-none" id="group_keyword_{{ i }}">
+                            <label class="mb-2" for="keyword_{{ i }}">
+                              Keyword {{ i }}{% if i == 1 %}
+                                &nbsp;(required) <span class="text-danger">*</span>
+                              {% else %}
+                                &nbsp;(optional)
+                              {% endif %}
+                            </label>
+                            <input class="form-control" type="text" name="keyword_{{ i }}" id="keyword_{{ i }}" oninput="handleKeywordInput({{ i }})" />
+                          </div>
+                        {% endfor %}
+                      </div>
+
+                      <!-- Image URL -->
+                      <div class="col-md-12">
+                        <label class="mb-2" for="image_url">Image URL (optional)</label>
+                        <input class="form-control" type="url" name="image_url" id="image_url" />
+                      </div>
+
+                      <!-- YouTube URL -->
+                      <div class="col-md-12">
+                        <label class="mb-2" for="youtube_url">YouTube Video URL (optional)</label>
+                        <input class="form-control" type="url" name="youtube_url" id="youtube_url" />
+                      </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm" type="submit">Proceed to Purchase</button>
+                  </form>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                      document.getElementById('group_keyword_1').classList.remove('d-none')
+                    })
+                    
+                    function handleKeywordInput(index) {
+                      const currentField = document.getElementById(`keyword_${index}`)
+                      const nextGroup = document.getElementById(`group_keyword_${index + 1}`)
+                      // If the current field has content, show the next field
+                      if (currentField.value.trim() !== '') {
+                        if (nextGroup) nextGroup.classList.remove('d-none')
+                      } else {
+                        // If empty, hide all following fields
+                        for (let i = index + 1; i <= 10; i++) {
+                          let group = document.getElementById(`group_keyword_${i}`)
+                          if (group) {
+                            group.classList.add('d-none')
+                            document.getElementById(`keyword_${i}`).value = ''
+                          }
+                        }
+                      }
+                    }
+                  </script>
+                  <br />
+                </div>
+              </div>
+              <div class="col-lg-6 mb-3 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+                <div class="row">
+                  {% if package_name == '1-tier-standard' %}
+                    {% include 'about_package/1-tier-standard.html' %}
+                  {% elif package_name == '1-tier-advance' %}
+                    {% include 'about_package/1-tier-advance.html' %}
+                  {% elif package_name == '1-tier-premium' %}
+                    {% include 'about_package/1-tier-premium.html' %}
+                  {% elif package_name == '1-tier-ultimate' %}
+                    {% include 'about_package/1-tier-ultimate.html' %}
+                  {% elif package_name == '2-tier-standard' %}
+                    {% include 'about_package/2-tier-standard.html' %}
+                  {% elif package_name == '2-tier-advance' %}
+                    {% include 'about_package/2-tier-advance.html' %}
+                  {% elif package_name == '2-tier-premium' %}
+                    {% include 'about_package/2-tier-premium.html' %}
+                  {% elif package_name == '2-tier-ultimate' %}
+                    {% include 'about_package/2-tier-ultimate.html' %}
+                  {% elif package_name == '3-tier-standard' %}
+                    {% include 'about_package/3-tier-standard.html' %}
+                  {% elif package_name == '3-tier-advance' %}
+                    {% include 'about_package/3-tier-advance.html' %}
+                  {% elif package_name == '3-tier-premium' %}
+                    {% include 'about_package/3-tier-premium.html' %}
+                  {% elif package_name == '3-tier-ultimate' %}
+                    {% include 'about_package/3-tier-ultimate.html' %}
+                  {% elif package_name == '50000-backlinks-1-tier-package' %}
+                    {% include 'about_package/50000-backlinks-1-tier-package.html' %}
+                  {% endif %}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing__v2" id="pricing">
+    <div class="container">
+      <div class="row mb-2">
+        <div class="col-md-5 mx-auto text-center">
+          <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">Top Selling Packages</h2>
+          <p data-aos="fade-up" data-aos-delay="100">The most frequently purchased backlinks packages by our customers.</p>
+        </div>
+      </div>
+
+      <div id="one-tier">
+        <div class="row text-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-4 rounded-4 price-table popular h-100">
+              <h3 class="text-center">1 Tier Standard</h3>
+              <div class="price mb-4">
+                <strong>₹750</strong>
+                <h6 style="color: white;">(USD 12$)</h6>
+              </div>
+              <p>Total 750+ Backlinks</p>
+              <hr />
+              <p>All Package Features Included</p>
+              <hr />
+              <p>Report in 5 Working Days</p>
+              <div>
+                <a class="btn btn-white hover-outline" href="{% url 'package' '1-tier-standard' %}">Select Package</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-4 rounded-4 price-table popular h-100">
+              <h3 class="text-center">1 Tier Advance</h3>
+              <div class="price mb-4">
+                <strong>₹1000</strong>
+                <h6 style="color: white;">(USD 15$)</h6>
+              </div>
+              <p>Total 1,200+ Backlinks</p>
+              <hr />
+              <p>All Package Features Included</p>
+              <hr />
+              <p>Report in 5 Working Days</p>
+              <div>
+                <a class="btn btn-white hover-outline" href="{% url 'package' '1-tier-advance' %}">Select Package</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-4 rounded-4 price-table popular h-100">
+              <h3 class="text-center">1 Tier Premium</h3>
+              <div class="price mb-4">
+                <strong>₹1,750</strong>
+                <h6 style="color: white;">(USD 24$)</h6>
+              </div>
+              <p>Total 2,750+ Backlinks</p>
+              <hr />
+              <p>All Package Features Included</p>
+              <hr />
+              <p>Report in 5 Working Days</p>
+
+              <div>
+                <a class="btn btn-white hover-outline" href="{% url 'package' '1-tier-premium' %}">Select Package</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

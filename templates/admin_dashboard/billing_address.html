@@ -1,0 +1,112 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+          <li class="breadcrumb-item">
+            <a href="/">
+              <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Billing address's</li>
+        </ol>
+      </nav>
+      <h2 class="h4">Billing Address List</h2>
+    </div>
+  </div>
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <table id="myTable" class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Company Name</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for address in addresses %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ address.first_name }}</td>
+            <td>{{ address.company_name }}</td>
+            <td>{{ address.phone }}</td>
+            <td>{{ address.email }}</td>
+            <td>
+              <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#viewUserModal{{ address.id }}"><i class="bi bi-eye"></i>&nbsp;&nbsp;View</button>
+            </td>
+          </tr>
+          <div class="modal fade" id="viewUserModal{{ address.id }}" tabindex="-1" aria-labelledby="viewUserModalLabel{{ address.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" id="viewUserModalLabel{{ user.id }}">Billing Address - {{ address.first_name }}</h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">First Name:</label>
+                      <p>{{ address.first_name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Last Name:</label>
+                      <p>{{ address.last_name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Company Name:</label>
+                      <p>{{ address.company_name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Address:</label>
+                      <p>{{ address.address }}</p>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">City:</label>
+                      <p>{{ address.city }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Pic Code:</label>
+                      <p>{{ address.pin_code }}</p>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">State:</label>
+                      <p>{{ address.state }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Country:</label>
+                      <p>{{ address.country }}</p>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Phone Number:</label>
+                      <p>{{ address.phone }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold">Email:</label>
+                      <p>{{ address.email }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br />
+{% endblock %}
