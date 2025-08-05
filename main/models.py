@@ -66,6 +66,40 @@ class Backlink_cart(models.Model):
 
 
 
+class TempBacklinkCart(models.Model):
+    session_key = models.CharField(max_length=255)
+    package_name = models.ForeignKey(Package, on_delete=models.CASCADE)
+    website_url = models.URLField(verbose_name="Website URL", max_length=500)
+    keyword_1 = models.CharField(verbose_name="Keyword 1", max_length=255)
+    keyword_2 = models.CharField(verbose_name="Keyword 2", max_length=255, blank=True, null=True)
+    keyword_3 = models.CharField(verbose_name="Keyword 3", max_length=255, blank=True, null=True)
+    keyword_4 = models.CharField(verbose_name="Keyword 4", max_length=255, blank=True, null=True)
+    keyword_5 = models.CharField(verbose_name="Keyword 5", max_length=255, blank=True, null=True)
+    keyword_6 = models.CharField(verbose_name="Keyword 6", max_length=255, blank=True, null=True)
+    keyword_7 = models.CharField(verbose_name="Keyword 7", max_length=255, blank=True, null=True)
+    keyword_8 = models.CharField(verbose_name="Keyword 8", max_length=255, blank=True, null=True)
+    keyword_9 = models.CharField(verbose_name="Keyword 9", max_length=255, blank=True, null=True)
+    keyword_10 = models.CharField(verbose_name="Keyword 10", max_length=255, blank=True, null=True)
+    image_url = models.URLField(verbose_name="Image URL", max_length=500, blank=True, null=True)
+    youtube_url = models.URLField(verbose_name="YouTube Video URL", max_length=500, blank=True, null=True)
+    article_document = models.FileField(
+        verbose_name="Upload Article Document",
+        upload_to="temp_articles/",
+        blank=True,
+        null=True,
+        help_text="Only .doc or .docx files allowed"
+    )
+    created_at = models.DateField(auto_now_add=True)
+
+    @property
+    def completed_date(self):
+        return self.created_at + timedelta(days=self.package_name.days_to_complete)
+
+    def __str__(self):
+        return f"TempCart - {self.package_name} (Session: {self.session_key})"
+
+
+
 class BillingDetail(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='billing_details')
     first_name = models.CharField(max_length=100)
@@ -91,17 +125,16 @@ work_status = (('Payment_pending','Payment_pending'),('onprogress','onprogress')
 
 
 class Orders(models.Model):
-    order_id = models.CharField(null=True,blank=False)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    payment_status = models.CharField(choices=order_status,null=True,blank=False,default='Pending')
-    total_amount = models.CharField(max_length=50,null=True,blank=False)
+    order_id = models.CharField(max_length=50, null=True, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    payment_status = models.CharField(max_length=20, choices=order_status, null=True, blank=False, default='Pending')
+    total_amount = models.CharField(max_length=50, null=True, blank=False)
     backlink_cart = models.ManyToManyField(Backlink_cart)
-    work_status = models.CharField(choices=work_status,null=True,blank=False,default='Payment_pending')
+    work_status = models.CharField(max_length=30, choices=work_status, null=True, blank=False, default='Payment_pending')
     report_file = models.FileField(upload_to='order_reports/', null=True, blank=True)
     order_date = models.DateField(null=True, blank=True)
     stripe_payment_intent = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateField(auto_now_add=True)
-
 
     def save(self, *args, **kwargs):
         if not self.order_id:
@@ -119,9 +152,9 @@ class Orders(models.Model):
             self.order_date = timezone.now().date()
         super().save(*args, **kwargs)
 
-
     def __str__(self):
         return f"Order #{self.order_id}"
+
 
 class Invoice(models.Model):
     order = models.ForeignKey(Orders,on_delete=models.CASCADE)
