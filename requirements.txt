@@ -13,3 +13,4 @@ python-decouple
 django-widget-tweaks
 django-countries
 dj-database-url
+whitenoise
