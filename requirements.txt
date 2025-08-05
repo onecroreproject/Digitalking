@@ -10,3 +10,4 @@ psycopg2-binary
 pillow
 requests
 python-decouple
+django-widget-tweaks
