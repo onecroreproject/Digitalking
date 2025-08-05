@@ -11,3 +11,4 @@ pillow
 requests
 python-decouple
 django-widget-tweaks
+django-countries
