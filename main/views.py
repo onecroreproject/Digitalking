@@ -31,7 +31,7 @@ import qrcode
 import json
 from django.db.models import F, ExpressionWrapper, fields
 from django.utils.timezone import now
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 
 def generate_invoice(request, id):
@@ -353,20 +353,20 @@ def signin(request):
         pws = request.POST.get("password")
         user = authenticate(request, username=name, password=pws)
         if user is not None:
-            if user.is_superuser:
-                login(request, user)
-                next_url = request.POST.get("next") or "dashboard"
-                messages.success(request,f"Welcome back to Digital King's {request.user.first_name}...!")
-                return redirect(next_url)
-            else:
-                login(request, user)
-                next_url = request.POST.get("next") or "my_account"
-                messages.success(request,f"Welcome back to Digital King's {request.user.first_name}...!")
-                return redirect(next_url)
+            login(request, user)
+            if 'temp_cart_id' in request.session:
+                return redirect('move_temp_to_cart')
+            next_url = request.POST.get("next") or request.GET.get("next")
+            if not next_url:
+                next_url = "dashboard" if user.is_superuser else "my_account"
+
+            messages.success(request, f"Welcome back to Digital King's {request.user.first_name}...!")
+            return redirect(next_url)
         else:
-            messages.error(request,"Invalid username or password.")
+            messages.error(request, "Invalid username or password.")
             return redirect('signin')
-    return render(request,"auth/signin.html")
+
+    return render(request, "auth/signin.html")
 
 
 def signup(request):
@@ -424,7 +424,6 @@ def verify_otp(request):
                 user.save()
                 otp_record.delete()
                 user.backend = 'main.authentication.EmailBackend'
-                login(request,user)
                 context = {
                     'name': user.first_name,
                     'email':user.email
@@ -436,11 +435,12 @@ def verify_otp(request):
                 subject = 'Please Verify Your Email Address on Digital King'
                 from_email = settings.DEFAULT_FROM_EMAIL
                 to_email = [user.email]
+                
                 msg = EmailMultiAlternatives(subject, text_content, from_email, to_email)
                 msg.attach_alternative(html_content, "text/html")
                 msg.send()
                 messages.success(request, 'Registration successful and verified.')
-                return redirect('my_account')
+                return redirect('signin')
             else:
                 messages.error(request,'Invalid OTP')
                 return redirect('verify_otp')
@@ -553,41 +553,96 @@ def my_account(request):
 
 def package(request, package_name):
     package = Package.objects.get(title=package_name)
+
+    if not request.session.session_key:
+        request.session.create()
+
     if request.method == 'POST':
-        package = package
         website_url = request.POST.get('website_url')
         keywords = [request.POST.get(f'keyword_{i}') for i in range(1, 11)]
         image_url = request.POST.get('image_url')
         youtube_url = request.POST.get('youtube_url')
         article_document = request.FILES.get('article_document')
 
-        backlink = Backlink_cart.objects.create(
-            package_name=package,
-            user=request.user,
-            website_url=website_url,
-            keyword_1=keywords[0],
-            keyword_2=keywords[1],
-            keyword_3=keywords[2],
-            keyword_4=keywords[3],
-            keyword_5=keywords[4],
-            keyword_6=keywords[5],
-            keyword_7=keywords[6],
-            keyword_8=keywords[7],
-            keyword_9=keywords[8],
-            keyword_10=keywords[9],
-            image_url=image_url,
-            youtube_url=youtube_url,
-            article_document=article_document
-        )
-
-        messages.success(request, "Backlink data saved successfully!")
-        return redirect('my_cart')
+        if request.user.is_authenticated:
+            Backlink_cart.objects.create(
+                user=request.user,
+                package_name=package,
+                website_url=website_url,
+                keyword_1=keywords[0],
+                keyword_2=keywords[1],
+                keyword_3=keywords[2],
+                keyword_4=keywords[3],
+                keyword_5=keywords[4],
+                keyword_6=keywords[5],
+                keyword_7=keywords[6],
+                keyword_8=keywords[7],
+                keyword_9=keywords[8],
+                keyword_10=keywords[9],
+                image_url=image_url,
+                youtube_url=youtube_url,
+                article_document=article_document
+            )
+            messages.success(request, "Backlink added to your cart successfully!")
+            return redirect('my_cart')
+        else:
+            temp_cart = TempBacklinkCart.objects.create(
+                session_key=request.session.session_key,
+                package_name=package,
+                website_url=website_url,
+                keyword_1=keywords[0],
+                keyword_2=keywords[1],
+                keyword_3=keywords[2],
+                keyword_4=keywords[3],
+                keyword_5=keywords[4],
+                keyword_6=keywords[5],
+                keyword_7=keywords[6],
+                keyword_8=keywords[7],
+                keyword_9=keywords[8],
+                keyword_10=keywords[9], 
+                image_url=image_url,
+                youtube_url=youtube_url,
+                article_document=article_document
+            )
+            request.session['temp_cart_id'] = temp_cart.id
+            messages.info(request, "Please login or register to continue.")
+            return redirect('signin')
 
     return render(request, "package.html", {
         'package_name': package_name,
-        'range': range(1, 11),  # Pass proper numeric range,
-        'package_details':package
+        'range': range(1, 11),
+        'package_details': package
     })
+
+
+@login_required
+def move_temp_to_cart(request):
+    temp_cart_id = request.session.get('temp_cart_id')
+    if temp_cart_id:
+        temp_item = TempBacklinkCart.objects.filter(id=temp_cart_id).first()
+        if temp_item:
+            Backlink_cart.objects.create(
+                user=request.user,
+                package_name=temp_item.package_name,
+                website_url=temp_item.website_url,
+                keyword_1=temp_item.keyword_1,
+                keyword_2=temp_item.keyword_2,
+                keyword_3=temp_item.keyword_3,
+                keyword_4=temp_item.keyword_4,
+                keyword_5=temp_item.keyword_5,
+                keyword_6=temp_item.keyword_6,
+                keyword_7=temp_item.keyword_7,
+                keyword_8=temp_item.keyword_8,
+                keyword_9=temp_item.keyword_9,
+                keyword_10=temp_item.keyword_10,
+                image_url=temp_item.image_url,
+                youtube_url=temp_item.youtube_url,
+                article_document=temp_item.article_document
+            )
+            temp_item.delete()
+            del request.session['temp_cart_id']
+    return redirect('my_cart')
+    
 def my_cart(request):
     backlink_items = Backlink_cart.objects.filter(user=request.user, is_paid=False)
     total_price = backlink_items.aggregate(
@@ -623,7 +678,6 @@ def stripe_webhook(request):
 
 
 def checkout(request):
-
     backlink_items = Backlink_cart.objects.filter(user=request.user, is_paid=False)
     total_price = backlink_items.aggregate(
         total=Sum('package_name__price')
@@ -761,7 +815,6 @@ def account_details(request):
     return render(request,"my_account/account_details.html")
 
 
-
 # Admin Dashboard
 
 @user_passes_test(lambda u:u.is_superuser)
@@ -790,8 +843,9 @@ def dashboard(request):
 def order_dashboard(request):
     total_orders = Orders.objects.filter(payment_status="Completed").count()
     completed_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="Completed").count()
-    pending_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="Pending").count()
-    scheduled_orders = Orders.objects.filter(payment_status='Completed').filter(work_status="Pending").order_by('order_date')
+    print("========",completed_orders)
+    pending_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="onprogress").count()
+    scheduled_orders = Orders.objects.filter(payment_status='Completed').filter(work_status="onprogress").order_by('order_date')
     return render(request,"admin_dashboard/order_dashboard.html",{'total_orders':total_orders,'completed_orders':completed_orders,'pending_orders':pending_orders,'scheduled_orders':scheduled_orders})
 
 
@@ -834,7 +888,7 @@ def upload_report(request, id):
         # Save to model
         filename = f"order_{order.order_id}_report.xlsx"
         order.report_file.save(filename, ContentFile(excel_stream.getvalue()))
-        order.work_status = "Delivered"
+        order.work_status = "Completed"
         order.save()
 
         # Prepare and send email with attachment

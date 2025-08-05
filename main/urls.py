@@ -29,6 +29,7 @@ urlpatterns = [
     path('privacy_policy',privacy_policy,name="privacy_policy"),
     
     path('generate_invoice/<int:id>',generate_invoice,name="generate_invoice"),
+    path('move-temp/', move_temp_to_cart, name='move_temp_to_cart'),
     
     # My account
     
