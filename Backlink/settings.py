@@ -127,9 +127,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Where collectstatic will put files
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/static/'
+
+# Where Django will collect all static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Only add your app's static folder here, NOT STATIC_ROOT
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Your custom static folder
+]
 
 
 MEDIA_URL = '/media/'
