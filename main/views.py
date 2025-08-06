@@ -21,7 +21,7 @@ import stripe
 import os
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, KeepTogether
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
 from django.http import FileResponse
@@ -43,118 +43,87 @@ def generate_invoice(request, id):
     # Buffer for PDF
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(
-        buffer, 
+        buffer,
         pagesize=A4,
-        rightMargin=30,
-        leftMargin=30,
-        topMargin=30,
-        bottomMargin=30
+        rightMargin=20,
+        leftMargin=20,
+        topMargin=20,
+        bottomMargin=20
     )
     elements = []
-    
-    # Custom Styles
+
+    # Styles
     styles = getSampleStyleSheet()
-    
-    # Enhanced custom styles
     title_style = ParagraphStyle(
-        'CustomTitle',
+        'Title',
         parent=styles['Heading1'],
-        fontSize=24,
+        fontSize=22,
         textColor=colors.HexColor('#2E86AB'),
-        spaceAfter=20,
-        alignment=1,  # Center alignment
+        alignment=1,
         fontName='Helvetica-Bold'
     )
-    
     company_style = ParagraphStyle(
-        'CompanyStyle',
+        'Company',
         parent=styles['Normal'],
-        fontSize=12,
+        fontSize=11,
         textColor=colors.HexColor('#333333'),
-        spaceAfter=15,
-        alignment=1,  # Center alignment
-        leading=16
+        alignment=2,
+        leading=14
     )
-    
     section_header_style = ParagraphStyle(
         'SectionHeader',
         parent=styles['Heading2'],
-        fontSize=14,
-        textColor=colors.HexColor('#2E86AB'),
-        spaceBefore=15,
-        spaceAfter=10,
-        fontName='Helvetica-Bold'
-    )
-    
-    info_style = ParagraphStyle(
-        'InfoStyle',
-        parent=styles['Normal'],
-        fontSize=10,
-        textColor=colors.HexColor('#555555'),
-        spaceAfter=12,
-        leading=14
-    )
-    
-    total_style = ParagraphStyle(
-        'TotalStyle',
-        parent=styles['Normal'],
-        fontSize=16,
-        textColor=colors.HexColor('#2E86AB'),
+        fontSize=13,
+        textColor=colors.HexColor('#215C5C'),
         fontName='Helvetica-Bold',
-        alignment=2,  # Right alignment
-        spaceBefore=15,
-        spaceAfter=15
+        spaceBefore=0, 
+        spaceAfter=5 
+    )
+    info_style = ParagraphStyle(
+        'Info',
+        parent=styles['Normal'],
+        fontSize=9,
+        textColor=colors.HexColor('#555555'),
+        leading=12
     )
 
-    # Header with Logo and Company Info
-    header_data = []
-    
-    # Logo (if exists)
+    # Header
     logo_path = os.path.join(settings.BASE_DIR, 'static', 'digital_king.png')
     if os.path.exists(logo_path):
-        logo = Image(logo_path, width=120, height=40)
-        logo.hAlign = 'LEFT'
+        logo = Image(logo_path, width=100, height=35)
     else:
         logo = Paragraph("<b>LOGO</b>", section_header_style)
-    
-    # Company info aligned right
+
     company_info = """
     <b>SoftSprint [ BACKLINK WORKS ]</b><br/>
-    14, Kemparup Main Road<br/>
-    Bengaluru 560024, KA, INDIA<br/>
-    <b>Email:</b> hello@backlinkworks.com<br/>
-    <b>Website:</b> backlinkworks.com
+    14, Kemparup Main Road, Bengaluru 560024<br/>
+    <b>Email:</b> hello@digitalkingonline.com<br/>
+    <b>Website:</b> digitalkingonline.com
     """
     company_para = Paragraph(company_info, company_style)
-    
-    # Create header table
-    header_table = Table([[logo, company_para]], colWidths=[200, 300])
-    
+
+    header_table = Table([[logo, company_para]], colWidths=[150, '*'])
     header_table.setStyle(TableStyle([
         ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-        ('ALIGN', (0, 0), (0, 0), 'LEFT'),
         ('ALIGN', (1, 0), (1, 0), 'RIGHT'),
     ]))
-    
-    elements.append(header_table)
-    elements.append(Spacer(1, 20))
+    elements.append(KeepTogether([header_table]))
+    elements.append(Spacer(1, 10))
 
-
-    title_table = Table([["INVOICE CUM RECEIPT"]], colWidths=[500])
+    # Title
+    title_table = Table([["INVOICE CUM RECEIPT"]], colWidths=['*'])
     title_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#215C5C')),
         ('TEXTCOLOR', (0, 0), (-1, -1), colors.white),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 18),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+        ('FONTSIZE', (0, 0), (-1, -1), 16),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
     ]))
     elements.append(title_table)
-    elements.append(Spacer(1, 25))
+    elements.append(Spacer(1, 15))
 
-    # Order and Billing Info Side by Side
+    # Invoice Info
     order_info = f"""
     <b>Invoice Details:</b><br/>
     <b>Invoice No:</b> {order.order_id}<br/>
@@ -162,7 +131,6 @@ def generate_invoice(request, id):
     <b>Payment Status:</b> <font color="#28A745">{order.payment_status}</font><br/>
     <b>Payment Mode:</b> Online
     """
-    
     billing_info = f"""
     <b>Bill To:</b><br/>
     <b>{billing.first_name} {billing.last_name}</b><br/>
@@ -171,148 +139,111 @@ def generate_invoice(request, id):
     {billing.city}, {billing.state} - {billing.pin_code}<br/>
     <b>Email:</b> {billing.email}
     """
-    
-    info_table = Table([
-        [Paragraph(order_info, info_style), Paragraph(billing_info, info_style)]
-    ], colWidths=[250, 250])
+    info_table = Table([[Paragraph(order_info, info_style), Paragraph(billing_info, info_style)]],
+                       colWidths=['*', '*'])
     info_table.setStyle(TableStyle([
         ('VALIGN', (0, 0), (-1, -1), 'TOP'),
         ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#F8F9FA')),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#DEE2E6')),
-        ('TOPPADDING', (0, 0), (-1, -1), 15),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 15),
-        ('LEFTPADDING', (0, 0), (-1, -1), 15),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 15),
+        ('PADDING', (0, 0), (-1, -1), 10),
     ]))
     elements.append(info_table)
-    elements.append(Spacer(1, 25))
+    elements.append(Spacer(1, 15))
 
-    # Enhanced Items Table
+    # Items Table
     data = [['#', 'Service Description', 'Qty', 'Unit Price', 'Amount']]
     total_amount = 0
-    
     for idx, item in enumerate(items, 1):
         amount = float(item.package_name.price)
         total_amount += amount
-        data.append([
-            str(idx), 
-            item.package_name.title, 
-            '1', 
-            f"$ {amount:,.2f}",
-            f"$ {amount:,.2f}"
-        ])
-
+        data.append([str(idx), item.package_name.title, '1', f"$ {amount:,.2f}", f"$ {amount:,.2f}"])
     data.append(['', '', '', 'Subtotal:', f"$ {total_amount:,.2f}"])
-
     data.append(['', '', '', 'Total Amount:', f"$ {total_amount:,.2f}"])
 
-    table = Table(data, colWidths=[30, 250, 50, 85, 85])
+    table = Table(data, colWidths=[30, '*', 50, 80, 80])
     table.setStyle(TableStyle([
-        # Header row styling
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#215C5C")),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 11),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
-        
-        # Data rows styling
-        ('FONTNAME', (0, 1), (-1, -4), 'Helvetica'),
-        ('FONTSIZE', (0, 1), (-1, -4), 10),
-        ('ALIGN', (0, 1), (0, -4), 'CENTER'),  # Serial numbers
-        ('ALIGN', (2, 1), (-1, -4), 'CENTER'),  # Qty, Price, Amount
-        ('ALIGN', (1, 1), (1, -4), 'LEFT'),     # Description
-        
-        # Subtotal and total rows
-        ('FONTNAME', (0, -3), (-1, -1), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, -3), (-1, -1), 11),
-        ('ALIGN', (3, -3), (-1, -1), 'RIGHT'),
-        ('BACKGROUND', (0, -1), (-1, -1), colors.HexColor('#F8F9FA')),
-        
-        # Grid and borders
-        ('GRID', (0, 0), (-1, -4), 1, colors.HexColor('#DEE2E6')),
-        ('LINEBELOW', (0, -3), (-1, -3), 1, colors.HexColor('#DEE2E6')),
-        ('LINEBELOW', (0, -1), (-1, -1), 2, colors.HexColor('#2E86AB')),
-        
-        # Padding
-        ('TOPPADDING', (0, 0), (-1, -1), 8),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
-        ('LEFTPADDING', (0, 0), (-1, -1), 10),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 10),
-        
-        # Alternating row colors for better readability
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('GRID', (0, 0), (-1, -4), 0.5, colors.HexColor('#DEE2E6')),
         ('ROWBACKGROUNDS', (0, 1), (-1, -4), [colors.white, colors.HexColor('#F8F9FA')]),
+        ('ALIGN', (0, 1), (0, -1), 'CENTER'),
+        ('ALIGN', (2, 1), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, -2), (-1, -1), 'Helvetica-Bold'),
+        ('BACKGROUND', (0, -1), (-1, -1), colors.HexColor('#F8F9FA')),
     ]))
     elements.append(table)
-    elements.append(Spacer(1, 25))
+    elements.append(Spacer(1, 15))
 
-    # Terms & Conditions with better formatting
-    elements.append(Paragraph("Terms & Conditions", section_header_style))
-    terms = """
-    <b>1. Service Delivery:</b> Digital SEO services will be delivered as per the timeline mentioned in order confirmation.<br/><br/>
-    <b>2. Service Nature:</b> All services are digital in nature and reports will be shared via email.<br/><br/>
-    <b>3. Payment Terms:</b> Payment has been received online and is non-refundable after service initiation.<br/><br/>
-    <b>4. Support:</b> Post-delivery support available for 30 days from completion date.
+    # Terms & Conditions
+    terms_text = """
+    <b>1. Estimated Delivery Time</b><br/>
+    Order completion timelines are based on the estimated delivery date provided during checkout. While we strive to deliver on time, delays due to unforeseen factors may occur. Any updates will be shared via email.<br/><br/>
+
+    <b>2. Service Scope</b><br/>
+    All services offered are strictly digital in nature. No physical products will be shipped or delivered.<br/><br/>
+
+    <b>3. Project Report & Access</b><br/>
+    Once your order is completed, you will receive a detailed report (in Excel format) by email. This report will also be accessible through your account dashboard. Please note that older reports may be removed periodically, be sure to download and store your copy for future reference.<br/><br/>
+
+    <b>4. Support Assistance</b><br/>
+    For questions, concerns, or help with your order, please submit a support ticket at: Our website link.<br/><br/>
+
+    <b>5. Refund Policy</b><br/>
+    If you're not satisfied with the service, please review our refund eligibility and process at: Our website link.<br/><br/>
+
+    <b>6. Contact Information</b><br/>
+    For general inquiries or assistance, email us at our email. Our support team will respond within 48 business hours.<br/><br/>
+
+    <i>By continuing to use our services, you confirm that you have read and agree to the above terms.</i>
     """
-    terms_para = Paragraph(terms, info_style)
-    
-    # Terms box with background
-    terms_table = Table([[terms_para]], colWidths=[500])
+
+    terms_para = Paragraph(terms_text, info_style)
+    terms_table = Table([[terms_para]], colWidths=['*'])
     terms_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#F8F9FA')),
-        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#DEE2E6')),
-        ('TOPPADDING', (0, 0), (-1, -1), 15),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 15),
-        ('LEFTPADDING', (0, 0), (-1, -1), 15),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 15),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#DEE2E6')),
+        ('PADDING', (0, 0), (-1, -1), 10),
     ]))
-    elements.append(terms_table)
-    elements.append(Spacer(1, 20))
+    elements.append(KeepTogether([Paragraph("Terms & Conditions", section_header_style), terms_table]))
+    elements.append(Spacer(1, 10))
 
-    # QR Code and Footer
-    footer_elements = []
-    
-    # Generate QR Code
-    qr = qrcode.make(f"Order ID: {order.order_id}\nAmount: ₹{total_amount}")
+    # Footer with QR
+    qr = qrcode.make(f"Order ID: {order.order_id}\nAmount: ${total_amount}")
     qr_path = os.path.join(settings.MEDIA_ROOT, f"qr_{order.order_id}.png")
     qr.save(qr_path)
-    qr_image = Image(qr_path, width=80, height=80)
-    
-    # Footer text
+    qr_image = Image(qr_path, width=60, height=60)
+
     footer_text = """
     <b>Thank you for your business!</b><br/>
-    For support: hello@backlinkworks.com<br/>
+    For support: digitalkingonline.com<br/>
     Scan QR for order details
     """
     footer_para = Paragraph(footer_text, info_style)
-    footer_table = Table([[qr_image, footer_para]], colWidths=[100, 400])
+    footer_table = Table([[qr_image, footer_para]], colWidths=[70, '*'])
     footer_table.setStyle(TableStyle([
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('ALIGN', (0, 0), (0, 0), 'CENTER'),
         ('ALIGN', (1, 0), (1, 0), 'RIGHT'),
     ]))
     elements.append(footer_table)
 
-    # Add page numbers and footer
+    # Page Number
     def add_page_number(canvas, doc):
         canvas.saveState()
-        canvas.setFont('Helvetica', 9)
-        page_num = canvas.getPageNumber()
-        text = f"Page {page_num}"
-        canvas.drawRightString(570, 30, text)
-        
-        # Add a subtle footer line
-        canvas.setStrokeColor(colors.HexColor('#DEE2E6'))
-        canvas.line(30, 50, 570, 50)
+        canvas.setFont('Helvetica', 8)
+        canvas.drawRightString(570, 20, f"Page {doc.page}")
         canvas.restoreState()
 
-    # Build PDF with page template
+    # Build PDF
     doc.build(elements, onFirstPage=add_page_number, onLaterPages=add_page_number)
     buffer.seek(0)
-    
-    # Clean up QR code file
+
     if os.path.exists(qr_path):
         os.remove(qr_path)
+
     return FileResponse(buffer, as_attachment=True, filename=f"invoice_{order.order_id}.pdf")
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -842,7 +773,7 @@ def dashboard(request):
 
 def order_dashboard(request):
     total_orders = Orders.objects.filter(payment_status="Completed").count()
-    completed_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="Completed").count()
+    completed_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="Delivered").count()
     print("========",completed_orders)
     pending_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="onprogress").count()
     scheduled_orders = Orders.objects.filter(payment_status='Completed').filter(work_status="onprogress").order_by('order_date')
@@ -888,7 +819,7 @@ def upload_report(request, id):
         # Save to model
         filename = f"order_{order.order_id}_report.xlsx"
         order.report_file.save(filename, ContentFile(excel_stream.getvalue()))
-        order.work_status = "Completed"
+        order.work_status = "Delivered"
         order.save()
 
         # Prepare and send email with attachment

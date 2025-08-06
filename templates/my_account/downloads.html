@@ -34,9 +34,10 @@
             <div class="col-md-6 text-end">
               <div class="btn-group" role="group">
                 {% if download.report_file %}
-                  <a href="{{ download.report_file.url }}" class="btn btn-success btn-sm rounded-pill">
+                  <a href="{{ download.report_file.url }}" class="btn btn-sm rounded-pill">
                     <i class="bi bi-file-earmark-excel"></i> Excel Report
                   </a>&nbsp;
+                  
                 {% endif %}
                 <a href="{% url 'generate_invoice' download.id %}" class="btn btn-primary btn-sm rounded-pill">
                   <i class="bi bi-file-earmark-text"></i> Invoice

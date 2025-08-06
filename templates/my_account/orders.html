@@ -70,7 +70,8 @@
                   {% elif order.work_status == 'onprogress' %}
                   <span class="text-light bg-warning rounded">&nbsp;On Progress&nbsp;</span>
                   {% elif order.work_status == 'Payment_pending' %}
-                  <a class="btn btn-sm text-white fw-bold px-3 py-2" href="{% url "payment_page" order.id %}">&nbsp;Pay Now&nbsp;</a>
+                    <a href="{% url "payment_page" order.id %}" class="text-light bg-danger rounded px-3 py-1 d-inline-block" style="text-decoration: none;">Pay Now</a>
+                    
                   {% else %}
                   {% endif %}
                 </td>
