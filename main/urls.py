@@ -27,8 +27,6 @@ urlpatterns = [
 
     path('package/<str:package_name>',package,name="package"),
     path('privacy_policy',privacy_policy,name="privacy_policy"),
-    
-    path('generate_invoice/<int:id>',generate_invoice,name="generate_invoice"),
     path('move-temp/', move_temp_to_cart, name='move_temp_to_cart'),
     
     # My account
@@ -47,7 +45,9 @@ urlpatterns = [
     path("my-account/customer-query",user_customer_query,name="user_customer_query"),
     
     path('payment/<int:order_id>/', payment_page, name='payment_page'),
-    path('payment-success/', payment_success, name='payment_success'),
+
+    path('payment-success/<int:order_id>/', payment_success, name='payment_success'),
+
     path('payment-cancel/', payment_cancel, name='payment_cancel'),
     path('update-order-status/', update_order_status, name='update_order_status'),
 

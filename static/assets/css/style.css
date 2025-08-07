@@ -75,10 +75,9 @@ h6 {
   max-width: 1140px;
 }
 
-.section {
-  padding: 70px 0;
-  scroll-margin-top: 60px;
-}
+
+
+
 @media (max-width: 767.98px) {
   .section {
     padding: 40px 0;

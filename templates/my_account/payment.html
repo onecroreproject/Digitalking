@@ -145,7 +145,7 @@ payBtn.addEventListener('click', async () => {
                     },
                     body: JSON.stringify({ order_id: "{{ order.id }}" })
                 });
-                window.location.href = "{% url 'payment_success' %}";
+                window.location.href = "{% url 'payment_success' order.id %}";
             }
         }
     } catch (error) {

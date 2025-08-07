@@ -34,7 +34,7 @@ from django.utils.timezone import now
 from django.contrib.auth.decorators import user_passes_test, login_required
 
 
-def generate_invoice(request, id):
+def generate_invoice(id):
     # Fetch Order
     order = Orders.objects.get(id=id)
     billing = BillingDetail.objects.filter(user=order.user).first()
@@ -239,10 +239,14 @@ def generate_invoice(request, id):
     doc.build(elements, onFirstPage=add_page_number, onLaterPages=add_page_number)
     buffer.seek(0)
 
+    invoice = Invoice.objects.create(order=order)
+    invoice.invoice.save(f"invoice_{order.order_id}.pdf", ContentFile(buffer.read()))
+    invoice.save()
+
     if os.path.exists(qr_path):
         os.remove(qr_path)
 
-    return FileResponse(buffer, as_attachment=True, filename=f"invoice_{order.order_id}.pdf")
+    return invoice
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -657,6 +661,10 @@ def checkout(request):
         'form': form
     })
 
+
+
+
+
 def payment_page(request, order_id):
     order = Orders.objects.get(id=order_id)
     total_price_cents = int(float(order.total_amount) * 100)
@@ -687,7 +695,8 @@ def update_order_status(request):
     order.backlink_cart.update(is_paid=True)
     return JsonResponse({'status': 'success'})
 
-def payment_success(request):
+def payment_success(request,order_id):
+    generate_invoice(order_id)
     return render(request, "my_account/payment_success.html")
 
 def payment_cancel(request):
@@ -719,7 +728,7 @@ def view_order(request,ord_id):
 
 
 def downloads(request):
-    downloads = Orders.objects.filter(payment_status="Completed")
+    downloads = Orders.objects.filter(payment_status="Completed").filter(user=request.user)
     return render(request,"my_account/downloads.html",{'downloads':downloads})
 
 
@@ -774,7 +783,6 @@ def dashboard(request):
 def order_dashboard(request):
     total_orders = Orders.objects.filter(payment_status="Completed").count()
     completed_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="Delivered").count()
-    print("========",completed_orders)
     pending_orders = Orders.objects.filter(payment_status="Completed").filter(work_status="onprogress").count()
     scheduled_orders = Orders.objects.filter(payment_status='Completed').filter(work_status="onprogress").order_by('order_date')
     return render(request,"admin_dashboard/order_dashboard.html",{'total_orders':total_orders,'completed_orders':completed_orders,'pending_orders':pending_orders,'scheduled_orders':scheduled_orders})
